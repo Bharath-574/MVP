@@ -1,6 +1,7 @@
 // Array to store login credentials
         const loginCredentials = [
             { id: 'admin001', password: 'admin123', role: 'ULB Admin' },
+            {id: 'suar', password: '123', role: 'ULB Admin' },
             { id: 'champion001', password: 'green123', role: 'Green Champion' },
             { id: 'supervisor001', password: 'depot123', role: 'Depot Supervisor' },
             { id: 'analyst001', password: 'data123', role: 'Data Analyst' }
