@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Green Champion Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; color: #263238; }
+    header { background: #388e3c; color: #fff; padding: 1rem; }
+    .container { padding: 1rem 2rem; }
+    .task-card { background: #fff; border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(44,62,80,0.06); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Green Champion Dashboard</h1>
+  </header>
+  <div class="container">
+    <h2>My Tasks</h2>
+    <div id="tasks"></div>
+  </div>
+
+  <script>
+    const tasks = [
+      {title:'Clean garbage spot at Ward 5', status:'Pending'},
+      {title:'Submit composting report', status:'In Progress'},
+      {title:'Verify citizen complaint #C-102', status:'Completed'}
+    ];
+    const taskContainer = document.getElementById('tasks');
+    tasks.forEach(t => {
+      const card = `<div class="task-card">
+        <h3>${t.title}</h3>
+        <p>Status: ${t.status}</p>
+      </div>`;
+      taskContainer.innerHTML += card;
+    });
+  </script>
+</body>
+</html>

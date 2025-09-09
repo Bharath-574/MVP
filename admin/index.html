@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Government Portal</title>
+    <link rel="stylesheet" href="logs/style.css">
+</head>
+<body>
+    <!-- Login Form Container -->
+    <div id="loginForm" class="login-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Admin Login</h1>
+            <div class="header-line"></div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="adminLoginForm">
+            <!-- Role Selector -->
+            <div class="form-group">
+                <label for="role">Select Role</label>
+                <select id="role" name="role" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="Green Champion">Green Champion</option>
+                    <option value="ULB Admin">ULB Admin</option>
+                    <option value="Data Analyst">Data Analyst</option>
+                </select>
+            </div>
+
+            <!-- Admin ID Input -->
+            <div class="form-group">
+                <label for="adminId">Admin ID</label>
+                <input type="text" id="adminId" name="adminId" placeholder="Enter your ID" required>
+            </div>
+
+            <!-- Password Input -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" class="login-btn">Login</button>
+
+            <!-- Status Message -->
+            <div id="statusMessage" class="status-message hidden"></div>
+        </form>
+        <div class="demo-info">
+            <p class="demo-title">Demo Credentials:</p>
+            <p>ID: admin001, Password: admin123, Role: ULB Admin</p>
+            <p>ID: champion001, Password: green123, Role: Green Champion</p>
+            <p>ID: analyst001, Password: data123, Role: Data Analyst</p>
+        </div>
+
+    </div>
+
+    <!-- Success Page Container -->
+    <div id="successPage" class="login-container success-container hidden">
+        <h1>Welcome, Admin!</h1>
+        <p id="userRole">Role: </p>
+        <p id="userId">ID: </p>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <script src="logs/script.js"></script>
+</body>
+</html>

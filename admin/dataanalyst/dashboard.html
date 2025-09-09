@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Analyst Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; color: #263238; }
+    header { background: #1565c0; color: #fff; padding: 1rem; }
+    .container { padding: 1rem 2rem; }
+    .charts, .datasets { margin-top: 2rem; }
+    .dataset-card { background: #fff; border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(44,62,80,0.06); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Data Analyst Dashboard</h1>
+  </header>
+  <div class="container">
+    <h2>Available Datasets</h2>
+    <div class="datasets" id="dataset-list"></div>
+  </div>
+
+  <script>
+    const datasets = [
+      {name:'Waste Collection Report - August', uploadedBy:'Admin', date:'2025-09-01'},
+      {name:'Citizen Complaints - Last Month', uploadedBy:'Admin', date:'2025-08-20'}
+    ];
+
+    const container = document.getElementById('dataset-list');
+    datasets.forEach(ds => {
+      const card = `<div class="dataset-card">
+        <h3>${ds.name}</h3>
+        <p>Uploaded by: ${ds.uploadedBy}</p>
+        <p>Date: ${ds.date}</p>
+      </div>`;
+      container.innerHTML += card;
+    });
+  </script>
+</body>
+</html>
