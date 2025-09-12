@@ -1,0 +1,28 @@
+<!-- Complaints Section -->
+<div id="complaints-section" class="section hidden">
+    <div class="trust-card rounded-lg p-6">
+        <h3 class="text-xl font-semibold mb-4">Complaint Portal</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div>
+                <h4 class="font-medium mb-3">Submit New Complaint</h4>
+                <select id="issue-type" class="w-full p-3 border rounded-lg mb-3">
+                    <option value="">Select Issue Type</option>
+                    <option value="missed-collection">Missed Collection</option>
+                    <option value="overflowing-bins">Overflowing Bins</option>
+                    <option value="illegal-dumping">Illegal Dumping</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea id="issue-description" placeholder="Describe your issue..."
+                    class="w-full p-3 border rounded-lg mb-3 h-24 resize-none"></textarea>
+                <button onclick="Complaints.submitComplaint()"
+                    class="bg-accent-orange text-white px-6 py-2 rounded-lg">Submit Complaint</button>
+            </div>
+            <div>
+                <h4 class="font-medium mb-3">Recent Complaints</h4>
+                <div id="complaints-list" class="space-y-3">
+                    <!-- Complaints will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
