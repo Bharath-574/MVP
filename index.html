@@ -67,7 +67,46 @@
                 background-size: 100%;
             }
         }
+
+        /* Hide the Google top banner */
+        .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+        }
+        body {
+        top: 0px !important;
+        }
+
+        /* Hide Google logo/icon */
+        .goog-logo-link,
+        .goog-te-gadget span {
+        display: none !important;
+        }
+
+        /* Clean styling for the dropdown */
+        #google_translate_element {
+        background: #1565c0; /* your palette */
+        padding: 6px 10px;
+        border-radius: 8px;
+        display: inline-block;
+        }
+
+        #google_translate_element select {
+        background: #1565c0;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        }
+
+        #google_translate_element select:hover {
+        background: #0d47a1;
+        }
+
+
     </style>
+
 </head>
 <body class="bg-gray-100 dark:bg-dark-bg min-h-screen">
 
@@ -77,6 +116,14 @@
         <h1 class="text-xl sm:text-2xl font-bold text-main-heading dark:text-dark-headings absolute left-1/2 -translate-x-1/2">
             Welcome to Waste Management Portal
         </h1>
+
+
+
+        <!-- for translation  -->
+        <div id="google_translate_element"></div>
+
+
+
         <!-- Buttons on the right -->
         <div class="flex items-center space-x-4 ml-auto">
             <!-- Dark Mode Toggle Button -->
@@ -252,5 +299,15 @@
             showView('home'); // Always start on the home page
         });
     </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+            {pageLanguage: 'en'}, // default page language
+            'google_translate_element'
+            );
+        }
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
