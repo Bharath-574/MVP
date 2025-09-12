@@ -2,38 +2,202 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Green Champion Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; color: #263238; }
-    header { background: #388e3c; color: #fff; padding: 1rem; }
-    .container { padding: 1rem 2rem; }
-    .task-card { background: #fff; border: 1px solid #e0e0e0; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(44,62,80,0.06); }
-  </style>
+  <title>Green Champion Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <h1>Green Champion Dashboard</h1>
-  </header>
-  <div class="container">
-    <h2>My Tasks</h2>
-    <div id="tasks"></div>
-  </div>
+<body class="bg-gray-100 text-gray-800 flex">
 
-  <script>
-    const tasks = [
-      {title:'Clean garbage spot at Ward 5', status:'Pending'},
-      {title:'Submit composting report', status:'In Progress'},
-      {title:'Verify citizen complaint #C-102', status:'Completed'}
-    ];
-    const taskContainer = document.getElementById('tasks');
-    tasks.forEach(t => {
-      const card = `<div class="task-card">
-        <h3>${t.title}</h3>
-        <p>Status: ${t.status}</p>
-      </div>`;
-      taskContainer.innerHTML += card;
-    });
-  </script>
+  <!-- Sidebar -->
+  <aside class="w-64 bg-[#263238] text-white min-h-screen p-4">
+    <h2 class="text-xl font-bold mb-6">Menu</h2>
+    <nav class="space-y-2">
+      <button class="w-full text-left py-2 px-3 rounded hover:bg-gray-700" onclick="showSection('events-section')">Citizen Training</button>
+      <button onclick="showSection('workers')" class="w-full text-left py-2 px-3 rounded hover:bg-gray-700">Workers</button>
+      <!-- <button class="w-full text-left py-2 px-3 rounded hover:bg-gray-700" onclick="showSection('audit')">Waste Audit</button> -->
+      <!-- <button class="w-full text-left py-2 px-3 rounded hover:bg-gray-700" onclick="showSection('transport')">Transportation</button> -->
+      <button class="w-full text-left py-2 px-3 rounded hover:bg-gray-700" onclick="showSection('complaints-section')">Complaints</button>
+      <button class="w-full text-left py-2 px-3 rounded hover:bg-gray-700" onclick="showSection('profile')">Profile</button>
+
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+
+    <!-- Citizen Training Section -->
+    <!-- ===== EVENTS / CITIZEN TRAINING SECTION ===== -->
+    <section id="events-section" class="hidden p-6">
+      <h2 class="text-2xl font-bold mb-4 text-[#263238]">Citizen Training & Events</h2>
+
+      <!-- Create Event Form -->
+      <div class="bg-white rounded-2xl shadow-md p-6 mb-8 border border-[#e0e0e0]">
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Create Event</h3>
+        <form id="event-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" id="event-title" placeholder="Event Title" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none">
+
+          <input type="datetime-local" id="event-time" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none">
+
+          <input type="text" id="event-location" placeholder="Location" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none">
+
+          <input type="number" id="event-volunteers" placeholder="Expected Volunteers" required min="1"
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none">
+
+          <textarea id="event-description" placeholder="Event Description"
+            class="col-span-1 md:col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none"></textarea>
+
+          <button type="submit"
+            class="col-span-1 md:col-span-2 bg-[#1565c0] text-white py-2 rounded-lg hover:bg-[#0d47a1] transition">
+            Create Event
+          </button>
+        </form>
+      </div>
+
+      <!-- Events List -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Upcoming Events</h3>
+        <div id="events-list" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+      </div>
+    </section>
+
+    <!-- Worker Monitoring Section -->
+    <section id="workers" class="hidden">
+      <h1 class="text-2xl font-bold mb-4">Workers</h1>
+      <div id="workersList"></div>
+    </section>
+
+
+
+
+    <!-- Waste Audit Section -->
+    <section id="audit" class="hidden">
+      <h1 class="text-2xl font-bold mb-4">Waste Audit</h1>
+      <p>Proper Disposal: <span id="auditPercent"></span>%</p>
+      <form onsubmit="updateAudit(event)" class="mt-2">
+        <input id="correctWaste" type="number" placeholder="Correct" class="border p-1 rounded">
+        <input id="totalWaste" type="number" placeholder="Total" class="border p-1 rounded">
+        <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded">Update</button>
+      </form>
+    </section>
+
+    
+
+
+    
+    <!-- Transportation Section -->
+    <section id="transport" class="hidden">
+      <h1 class="text-2xl font-bold mb-4">Transportation</h1>
+      <form onsubmit="addTransport(event)" class="mb-4">
+        <input id="truckName" placeholder="Truck Name" class="border p-1 rounded">
+        <input id="truckStatus" placeholder="Status" class="border p-1 rounded">
+        <button type="submit" class="bg-green-500 text-white px-2 py-1 rounded">Add Truck</button>
+      </form>
+      <ul id="transportList" class="list-disc ml-5"></ul>
+    </section>
+
+
+
+
+
+    <!-- ===== COMPLAINTS SECTION ===== -->
+    <section id="complaints-section" class="p-6">
+      <h2 class="text-2xl font-bold mb-4 text-[#263238]">Raise a Complaint</h2>
+
+      <!-- Complaint Form -->
+      <div class="bg-white rounded-2xl shadow-md p-6 mb-8 border border-[#e0e0e0]">
+        <form id="complaint-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Category -->
+          <select id="complaint-category" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none">
+            <option value="" disabled selected>Select Category</option>
+            <option>Garbage Overflow</option>
+            <option>Missed Collection</option>
+            <option>Illegal Dumping</option>
+            <option>Broken Bin</option>
+          </select>
+
+          <!-- Ward -->
+          <select id="complaint-ward" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none">
+            <option value="" disabled selected>Select Ward</option>
+            <option>Ward 1</option>
+            <option>Ward 2</option>
+            <option>Ward 3</option>
+            <option>Ward 4</option>
+            <option>Ward 5</option>
+          </select>
+
+          <!-- Priority -->
+          <select id="complaint-priority" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none">
+            <option value="" disabled selected>Select Priority</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+
+          <!-- Upload Image -->
+          <input type="file" id="complaint-photo" accept="image/*"
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none">
+
+          <!-- Description -->
+          <textarea id="complaint-description" placeholder="Describe the issue..." required
+            class="col-span-1 md:col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1565c0] outline-none"></textarea>
+
+          <!-- Submit -->
+          <button type="submit"
+            class="col-span-1 md:col-span-2 bg-[#1565c0] text-white py-2 rounded-lg hover:bg-[#0d47a1] transition">
+            Submit Complaint
+          </button>
+        </form>
+      </div>
+
+      <!-- Incentive Points -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700">Incentive Points: 
+          <span id="incentive-points" class="font-bold text-[#388e3c]">0</span>
+        </h3>
+      </div>
+
+      <!-- Complaints List -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Submitted Complaints</h3>
+        <div id="complaints-list" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+      </div>
+    </section>
+
+
+
+
+    <!-- Profile Card -->
+    <section id="profile" class="hidden">
+      <h1 class="text-2xl font-bold mb-4">My Profile</h1>
+      
+      <div class="bg-white shadow p-4 rounded-lg mb-4">
+        <p><strong>Name:</strong> <span id="profileName"></span></p>
+        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+        <p><strong>Phone:</strong> <span id="profilePhone"></span></p>
+        <p><strong>Role:</strong> <span id="profileRole"></span></p>
+        <p><strong>Points:</strong> <span id="profilePoints"></span></p>
+      </div>
+
+      <h2 class="font-semibold mb-2">Edit Profile</h2>
+      <form onsubmit="updateProfile(event)" class="space-y-2">
+        <input id="editName" placeholder="Name" class="border p-1 rounded w-full">
+        <input id="editEmail" placeholder="Email" class="border p-1 rounded w-full">
+        <input id="editPhone" placeholder="Phone" class="border p-1 rounded w-full">
+        <input id="editRole" placeholder="Role" class="border p-1 rounded w-full">
+        <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded">Update</button>
+      </form>
+    </section>
+
+
+  </main>
+
+  <!-- JavaScript Logic -->
+  <script src="chamjs.js"></script>
 </body>
 </html>

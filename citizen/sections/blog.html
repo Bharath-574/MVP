@@ -1,0 +1,66 @@
+<!-- Blog Section -->
+<div id="blog-section" class="section hidden">
+    <div class="space-y-6">
+        <!-- Blog Header -->
+        <div class="trust-card rounded-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold">Waste Management Blog</h3>
+                <select id="blog-category-filter" onchange="Blog.filterByCategory()"
+                    class="border rounded-lg px-3 py-2 text-sm">
+                    <option value="">All Categories</option>
+                    <option value="tips">Tips & Tricks</option>
+                    <option value="news">News Updates</option>
+                    <option value="success">Success Stories</option>
+                    <option value="environmental">Environmental Impact</option>
+                </select>
+            </div>
+            <p class="text-gray-600">Stay updated with the latest news, tips, and stories about waste management in our
+                community.</p>
+        </div>
+
+        <!-- Featured Article -->
+        <div class="trust-card rounded-lg p-6 blog-card">
+            <div class="flex items-start space-x-4">
+                <div
+                    class="w-24 h-24 bg-gradient-to-br from-primary-green to-secondary-blue rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">FEATURED</span>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="bg-accent-orange text-white px-2 py-1 text-xs rounded">Featured</span>
+                        <span class="text-gray-500 text-sm">2 days ago</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Revolutionary Waste Segregation Methods Implemented in Green
+                        Valley</h4>
+                    <p class="text-gray-600 text-sm mb-3">Discover how our community achieved 85% waste reduction
+                        through innovative segregation techniques. Learn the methods that made it possible...</p>
+                    <button onclick="Blog.readArticle('featured')"
+                        class="text-primary-green font-medium text-sm hover:underline">Read More →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Grid -->
+        <div id="blog-articles" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Articles will be loaded here -->
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center">
+            <button onclick="Blog.loadMoreArticles()"
+                class="bg-primary-green text-white px-6 py-3 rounded-lg font-medium hover:opacity-90">
+                Load More Articles
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .blog-card {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-2px);
+    }
+</style>
