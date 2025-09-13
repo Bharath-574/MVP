@@ -136,6 +136,11 @@
                         <td class="pr-4">champion@example.com</td>
                         <td>pass123</td>
                     </tr>
+                    <tr>
+                        <td class="pr-4">Citizen</td>   
+                        <td class="pr-4">citizen@example.com</td>
+                        <td>pass123</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -191,7 +196,8 @@
             'operator@example.com': { password: 'pass123', role: 'operator' },
             'ulb@example.com': { password: 'pass123', role: 'ulb' },
             'analyst@example.com': { password: 'pass123', role: 'analyst' },
-            'champion@example.com': { password: 'pass123', role: 'champion' }
+            'champion@example.com': { password: 'pass123', role: 'champion' },
+            'citizen@example.com':{password : 'pass123', role: 'citizen'}
         };
 
         // --- Dark Mode Functionality ---
@@ -281,19 +287,22 @@
                         window.location.href = 'collector-dashboard.html';
                         break;
                     case 'local':
-                        window.location.href = 'local-dashboard.html';
+                        window.location.href = 'worker/second/index.html';
                         break;
                     case 'operator':
                         window.location.href = 'worker/landfield/landfield_dashboard.html';
                         break;
                     case 'ulb':
-                        window.location.href = 'ulb-dashboard.html';
+                        window.location.href = 'admin/admin/dashboard.html';
                         break;
                     case 'analyst':
                         window.location.href = 'analyst-dashboard.html';
                         break;
                     case 'champion':
-                        window.location.href = 'champion-dashboard.html';
+                        window.location.href = 'admin/champions/dashboard.html';
+                        break;
+                    case 'citizen':
+                        window.location.href = 'citizen/index.html';
                         break;
                 }
             } else {
@@ -313,5 +322,6 @@
             }
         });
     </script>
+
 </body>
 </html>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Waste Management Portal</title>
+    <link rel="manifest" href="manifest.json">
     <!-- Tailwind CSS with custom configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -67,7 +68,46 @@
                 background-size: 100%;
             }
         }
+
+        /* Hide the Google top banner */
+        .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+        }
+        body {
+        top: 0px !important;
+        }
+
+        /* Hide Google logo/icon */
+        .goog-logo-link,
+        .goog-te-gadget span {
+        display: none !important;
+        }
+
+        /* Clean styling for the dropdown */
+        #google_translate_element {
+        background: #1565c0; /* your palette */
+        padding: 6px 10px;
+        border-radius: 8px;
+        display: inline-block;
+        }
+
+        #google_translate_element select {
+        background: #1565c0;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        }
+
+        #google_translate_element select:hover {
+        background: #0d47a1;
+        }
+
+
     </style>
+
 </head>
 <body class="bg-gray-100 dark:bg-dark-bg min-h-screen">
 
@@ -77,6 +117,14 @@
         <h1 class="text-xl sm:text-2xl font-bold text-main-heading dark:text-dark-headings absolute left-1/2 -translate-x-1/2">
             Welcome to Waste Management Portal
         </h1>
+
+
+
+        <!-- for translation  -->
+        <div id="google_translate_element"></div>
+
+
+
         <!-- Buttons on the right -->
         <div class="flex items-center space-x-4 ml-auto">
             <!-- Dark Mode Toggle Button -->
@@ -155,6 +203,20 @@
                     </div>
                 </div>
             </section>
+
+
+
+            <!-- just trying to make a button -->
+            <!-- <div class="mt-8 text-center">
+                <p class="text-gray-600 dark:text-dark-text-secondary mb-4">To get the best experience, install this app on your device.</p>
+                <button id="installButton" class=" px-6 py-3 bg-lime-500 text-white font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-lime-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M13 14V10a1 1 0 00-1-1h-1a1 1 0 00-1 1v4h-.586l3.293 3.293a1 1 0 001.414-1.414L13 14zM8 8a1 1 0 00-1-1H6a1 1 0 00-1 1v6h.586l-3.293 3.293a1 1 0 001.414 1.414L8 14z" />
+                        <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zM17 10a1 1 0 01-1-1h-1a1 1 0 110 2h1a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    Install App
+                </button>
+            </div> -->
         </main>
     </div>
 </div>
@@ -252,5 +314,37 @@
             showView('home'); // Always start on the home page
         });
     </script>
+
+
+    <!-- for translation -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+            {pageLanguage: 'en'}, // default page language
+            'google_translate_element'
+            );
+        }
+    </script>
+
+
+    <!-- Service Worker Registration for PWA -->
+    <script>
+        // Check if the browser supports service workers
+        if ('serviceWorker' in navigator) {
+            // Wait for the page to fully load before registering
+            window.addEventListener('load', () => {
+                // Register the service worker file located at the root
+                navigator.serviceWorker.register('/sw.js')
+                    .then((reg) => {
+                        console.log('Service Worker Registered:', reg);
+                    })
+                    .catch((err) => {
+                        console.error('Service Worker Registration Failed:', err);
+                    });
+            });
+        }
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
