@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Waste Management Portal</title>
+    <link rel="manifest" href="manifest.json">
     <!-- Tailwind CSS with custom configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -299,12 +300,34 @@
             showView('home'); // Always start on the home page
         });
     </script>
+
+
+    <!-- for translation -->
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement(
             {pageLanguage: 'en'}, // default page language
             'google_translate_element'
             );
+        }
+    </script>
+
+
+    <!-- Service Worker Registration for PWA -->
+    <script>
+        // Check if the browser supports service workers
+        if ('serviceWorker' in navigator) {
+            // Wait for the page to fully load before registering
+            window.addEventListener('load', () => {
+                // Register the service worker file located at the root
+                navigator.serviceWorker.register('/sw.js')
+                    .then((reg) => {
+                        console.log('Service Worker Registered:', reg);
+                    })
+                    .catch((err) => {
+                        console.error('Service Worker Registration Failed:', err);
+                    });
+            });
         }
     </script>
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
