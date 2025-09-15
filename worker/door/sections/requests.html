@@ -1,0 +1,273 @@
+<!-- Collection Requests Section -->
+<div id="requests-section" class="section hidden">
+    <!-- Section Header -->
+    <div class="mb-6">
+        <div class="trust-card rounded-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold flex items-center">
+                    <i class="fas fa-calendar-alt text-secondary-blue mr-3"></i>
+                    Special Collection Requests
+                </h3>
+                <div class="flex items-center space-x-4">
+                    <button onclick="CollectionRequests.refreshRequests()"
+                        class="worker-btn bg-primary-green text-white">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Refresh</span>
+                    </button>
+                    <button onclick="CollectionRequests.viewMap()" class="worker-btn bg-secondary-blue text-white">
+                        <i class="fas fa-map"></i>
+                        <span>View Map</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-orange-50 rounded-lg">
+                    <div class="text-2xl font-bold text-orange-600" id="urgent-requests">2</div>
+                    <div class="text-sm text-gray-600">Urgent Requests</div>
+                </div>
+                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                    <div class="text-2xl font-bold text-blue-600" id="scheduled-requests">8</div>
+                    <div class="text-sm text-gray-600">Scheduled Today</div>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-lg">
+                    <div class="text-2xl font-bold text-green-600" id="completed-requests">15</div>
+                    <div class="text-sm text-gray-600">Completed</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="text-2xl font-bold text-gray-600" id="total-requests">25</div>
+                    <div class="text-sm text-gray-600">Total Requests</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter and Sort -->
+    <div class="mb-6">
+        <div class="trust-card rounded-lg p-4">
+            <div class="flex flex-wrap items-center gap-4">
+                <div class="flex items-center space-x-2">
+                    <label class="text-sm font-medium text-gray-700">Filter:</label>
+                    <select id="request-filter" onchange="CollectionRequests.filterRequests()"
+                        class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                        <option value="all">All Requests</option>
+                        <option value="urgent">Urgent Only</option>
+                        <option value="today">Today's Requests</option>
+                        <option value="pending">Pending</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <label class="text-sm font-medium text-gray-700">Sort by:</label>
+                    <select id="request-sort" onchange="CollectionRequests.sortRequests()"
+                        class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                        <option value="urgency">Urgency</option>
+                        <option value="time">Time</option>
+                        <option value="distance">Distance</option>
+                        <option value="amount">Waste Amount</option>
+                    </select>
+                </div>
+
+                <button onclick="CollectionRequests.acceptAllUrgent()" class="worker-btn bg-red-600 text-white ml-auto">
+                    <i class="fas fa-bolt"></i>
+                    <span>Accept All Urgent</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Requests List -->
+    <div class="space-y-4" id="requests-container">
+        <!-- Requests will be dynamically loaded here -->
+    </div>
+
+    <!-- Request Details Modal -->
+    <div id="request-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-lg w-full mx-4 max-h-screen overflow-y-auto">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold" id="request-modal-title">Request Details</h3>
+                <button onclick="CollectionRequests.closeModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4" id="request-details">
+                <!-- Request details will be populated here -->
+            </div>
+
+            <div class="flex space-x-3 pt-4" id="request-actions">
+                <!-- Action buttons will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Modal -->
+    <div id="schedule-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold">Schedule Collection</h3>
+                <button onclick="CollectionRequests.closeScheduleModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Collection Date</label>
+                    <input type="date" id="schedule-date"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Time Slot</label>
+                    <select id="schedule-time"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                        <option value="06:00-09:00">Morning (6:00 AM - 9:00 AM)</option>
+                        <option value="09:00-12:00">Mid-Morning (9:00 AM - 12:00 PM)</option>
+                        <option value="12:00-15:00">Afternoon (12:00 PM - 3:00 PM)</option>
+                        <option value="15:00-18:00">Evening (3:00 PM - 6:00 PM)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Estimated Duration</label>
+                    <select id="schedule-duration"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Notes (Optional)</label>
+                    <textarea id="schedule-notes" rows="3"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                        placeholder="Additional instructions or notes..."></textarea>
+                </div>
+
+                <div class="flex space-x-3">
+                    <button onclick="CollectionRequests.confirmSchedule()"
+                        class="flex-1 worker-btn bg-primary-green text-white">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Confirm Schedule</span>
+                    </button>
+                    <button onclick="CollectionRequests.closeScheduleModal()"
+                        class="flex-1 worker-btn bg-gray-600 text-white">
+                        <i class="fas fa-times"></i>
+                        <span>Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map View Modal -->
+    <div id="map-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold">Request Locations Map</h3>
+                <button onclick="CollectionRequests.closeMapModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="map-container bg-gray-100 rounded-lg h-96 flex items-center justify-center">
+                <div class="text-center">
+                    <i class="fas fa-map text-6xl text-gray-400 mb-4"></i>
+                    <p class="text-gray-600">Interactive map will be integrated here</p>
+                    <p class="text-sm text-gray-500">Showing locations of all collection requests</p>
+                </div>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between">
+                <div class="flex space-x-4 text-sm">
+                    <div class="flex items-center"><span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span>Urgent
+                    </div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>Scheduled
+                    </div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>Completed
+                    </div>
+                </div>
+                <button onclick="CollectionRequests.getDirections()" class="worker-btn bg-primary-green text-white">
+                    <i class="fas fa-directions"></i>
+                    <span>Get Directions</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collection Completion Modal -->
+    <div id="completion-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold">Complete Collection</h3>
+                <button onclick="CollectionRequests.closeCompletionModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Actual Weight Collected (kg)</label>
+                    <input type="number" id="actual-weight" step="0.1" min="0"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                        placeholder="Enter weight collected">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Collection Quality</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="CollectionRequests.setCompletionQuality('excellent')"
+                            class="quality-btn p-3 bg-green-100 text-green-800 rounded-lg border border-green-300 hover:bg-green-200 transition-colors">
+                            Excellent
+                        </button>
+                        <button onclick="CollectionRequests.setCompletionQuality('good')"
+                            class="quality-btn p-3 bg-blue-100 text-blue-800 rounded-lg border border-blue-300 hover:bg-blue-200 transition-colors">
+                            Good
+                        </button>
+                        <button onclick="CollectionRequests.setCompletionQuality('poor')"
+                            class="quality-btn p-3 bg-red-100 text-red-800 rounded-lg border border-red-300 hover:bg-red-200 transition-colors">
+                            Poor
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Completion Photo</label>
+                    <div class="flex items-center space-x-4">
+                        <div class="photo-btn" onclick="CollectionRequests.captureCompletionPhoto()"
+                            id="completion-photo-capture">
+                            <i class="fas fa-camera text-2xl text-primary-green mb-2"></i>
+                            <span class="text-sm text-primary-green">Take Photo</span>
+                        </div>
+                        <img id="completion-photo" class="photo-preview hidden" alt="Completion photo">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+                    <textarea id="completion-notes" rows="3"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                        placeholder="Any additional comments..."></textarea>
+                </div>
+
+                <div class="flex space-x-3">
+                    <button onclick="CollectionRequests.markCompleted()"
+                        class="flex-1 worker-btn bg-green-600 text-white">
+                        <i class="fas fa-check"></i>
+                        <span>Mark Completed</span>
+                    </button>
+                    <button onclick="CollectionRequests.closeCompletionModal()"
+                        class="flex-1 worker-btn bg-gray-600 text-white">
+                        <i class="fas fa-times"></i>
+                        <span>Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

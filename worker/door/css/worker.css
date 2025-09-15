@@ -1,0 +1,421 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.bg-primary-green {
+    background-color: #4CAF50;
+}
+
+.text-primary-green {
+    color: #4CAF50;
+}
+
+.border-primary-green {
+    border-color: #4CAF50;
+}
+
+.bg-secondary-blue {
+    background-color: #5B8DEF;
+}
+
+.text-secondary-blue {
+    color: #5B8DEF;
+}
+
+.bg-accent-orange {
+    background-color: #FFB74D;
+}
+
+.text-accent-orange {
+    color: #FFB74D;
+}
+
+.trust-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
+}
+
+.trust-card:hover {
+    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.12);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Worker-specific styles */
+.worker-nav-btn {
+    min-height: 60px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.worker-nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.worker-nav-btn.active {
+    background-color: white !important;
+    color: #4CAF50 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.worker-nav-btn.active i {
+    color: #4CAF50 !important;
+}
+
+.worker-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.voice-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.voice-btn.active {
+    background-color: #FFB74D !important;
+}
+
+/* Large, touch-friendly buttons for workers */
+.worker-btn {
+    min-height: 60px;
+    padding: 16px 24px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.worker-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.worker-btn i {
+    font-size: 20px;
+}
+
+/* Status indicators */
+.status-collected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.status-pending {
+    background-color: #FFB74D;
+    color: white;
+}
+
+.status-rejected {
+    background-color: #F44336;
+    color: white;
+}
+
+.status-reported {
+    background-color: #FF9800;
+    color: white;
+}
+
+/* House cards */
+.house-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.house-card:hover {
+    border-color: #4CAF50;
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.15);
+}
+
+.house-card.collected {
+    border-color: #4CAF50;
+    background-color: #E8F5E8;
+}
+
+.house-card.rejected {
+    border-color: #F44336;
+    background-color: #FFEBEE;
+}
+
+.house-card.pending {
+    border-color: #FFB74D;
+    background-color: #FFF8E1;
+}
+
+/* Route map */
+.route-progress {
+    background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+    height: 8px;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.route-container {
+    background: #f5f5f5;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Photo capture button */
+.photo-btn {
+    width: 120px;
+    height: 120px;
+    border: 3px dashed #4CAF50;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #F1F8E9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.photo-btn:hover {
+    background: #E8F5E8;
+    border-color: #2E7D32;
+}
+
+.photo-preview {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #4CAF50;
+}
+
+/* Schemes and benefits cards */
+.scheme-card {
+    background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.scheme-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: rotate(45deg);
+}
+
+.benefit-amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.benefit-description {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .worker-nav-btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
+    .worker-nav-btn span {
+        display: none;
+    }
+    
+    .house-card {
+        padding: 16px;
+    }
+    
+    .worker-btn {
+        min-height: 50px;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
+
+/* High contrast mode for better visibility */
+.high-contrast {
+    filter: contrast(150%) brightness(110%);
+}
+
+/* Loading spinner */
+.loading-spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4CAF50;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background-color: #4CAF50;
+}
+
+.notification.error {
+    background-color: #F44336;
+}
+
+.notification.warning {
+    background-color: #FF9800;
+}
+
+.notification.info {
+    background-color: #2196F3;
+}
+
+/* Profile Section Styles */
+/* Toggle Switches */
+.toggle-switch {
+    appearance: none;
+    width: 50px;
+    height: 24px;
+    background-color: #e5e7eb;
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-switch:checked {
+    background-color: #4CAF50;
+}
+
+.toggle-switch::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch:checked::before {
+    transform: translateX(26px);
+}
+
+/* Profile Tabs */
+.profile-tab {
+    color: #6b7280;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.profile-tab.active {
+    color: #4CAF50;
+    border-bottom-color: #4CAF50;
+}
+
+.profile-tab:hover:not(.active) {
+    color: #374151;
+    border-bottom-color: #d1d5db;
+}
+
+/* Worker Avatar */
+.worker-avatar {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Performance Chart Placeholder */
+.performance-chart {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border: 2px dashed #cbd5e1;
+}
+
+/* High Contrast Mode */
+.high-contrast {
+    filter: contrast(1.5) brightness(1.2);
+}
+
+.high-contrast .trust-card {
+    border: 2px solid #374151;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.high-contrast .worker-btn {
+    border: 2px solid currentColor;
+    font-weight: 600;
+}
+
+/* Tab Content */
+.tab-content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Worker Status Indicator */
+.worker-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #f0f9ff;
+}
+
+/* Form Focus States for Accessibility */
+.worker-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #4CAF50;
+    border-color: transparent;
+}

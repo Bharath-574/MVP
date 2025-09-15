@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker Portal - Door to Door Waste Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/worker.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+    <!-- Dashboard -->
+    <div id="dashboard">
+        <!-- Header -->
+        <header class="bg-white shadow-sm p-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-truck text-primary-green text-2xl"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">Worker Dashboard</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="worker-status online">
+                        <i class="fas fa-circle text-green-500"></i>
+                        <span class="text-sm">On Duty</span>
+                    </div>
+                    <button id="voice-toggle"
+                        class="voice-btn bg-primary-green text-white p-2 rounded-full hover:bg-green-600 transition-colors">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="bg-primary-green text-white p-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <button onclick="showSection('collection')"
+                        class="nav-btn worker-nav-btn flex items-center space-x-2 px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
+                        <i class="fas fa-trash-alt text-xl"></i>
+                        <span class="font-medium">Waste Collection</span>
+                    </button>
+                    <button onclick="showSection('penalties')"
+                        class="nav-btn worker-nav-btn flex items-center space-x-2 px-6 py-3 rounded-lg hover:bg-white/20 transition-all">
+                        <i class="fas fa-exclamation-triangle text-xl"></i>
+                        <span class="font-medium">Penalties & Reports</span>
+                    </button>
+                    <button onclick="showSection('requests')"
+                        class="nav-btn worker-nav-btn flex items-center space-x-2 px-6 py-3 rounded-lg hover:bg-white/20 transition-all">
+                        <i class="fas fa-calendar-alt text-xl"></i>
+                        <span class="font-medium">Collection Requests</span>
+                    </button>
+                    <button onclick="showSection('schemes')"
+                        class="nav-btn worker-nav-btn flex items-center space-x-2 px-6 py-3 rounded-lg hover:bg-white/20 transition-all">
+                        <i class="fas fa-gift text-xl"></i>
+                        <span class="font-medium">Schemes & Benefits</span>
+                    </button>
+                    <button onclick="showSection('profile')"
+                        class="nav-btn worker-nav-btn flex items-center space-x-2 px-6 py-3 rounded-lg hover:bg-white/20 transition-all">
+                        <i class="fas fa-user text-xl"></i>
+                        <span class="font-medium">Profile</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Quick Stats Bar -->
+        <div class="bg-white border-b border-gray-200 p-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="stat-card text-center p-3 bg-green-50 rounded-lg">
+                        <div class="stat-number text-2xl font-bold text-green-600" id="today-collections">0</div>
+                        <div class="stat-label text-sm text-gray-600">Today's Collections</div>
+                    </div>
+                    <div class="stat-card text-center p-3 bg-red-50 rounded-lg">
+                        <div class="stat-number text-2xl font-bold text-red-600" id="penalties-issued">0</div>
+                        <div class="stat-label text-sm text-gray-600">Penalties Issued</div>
+                    </div>
+                    <div class="stat-card text-center p-3 bg-blue-50 rounded-lg">
+                        <div class="stat-number text-2xl font-bold text-blue-600" id="pending-requests">0</div>
+                        <div class="stat-label text-sm text-gray-600">Pending Requests</div>
+                    </div>
+                    <div class="stat-card text-center p-3 bg-yellow-50 rounded-lg">
+                        <div class="stat-number text-2xl font-bold text-yellow-600" id="earnings-today">₹0</div>
+                        <div class="stat-label text-sm text-gray-600">Today's Earnings</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="max-w-7xl mx-auto p-6" id="main-content">
+            <!-- Sections will be loaded here dynamically -->
+        </main>
+    </div>
+
+    <!-- Load Navigation Script -->
+    <script src="js/navigation.js"></script>
+
+    <!-- Load Section Scripts -->
+    <script src="js/collection.js"></script>
+    <script src="js/penalties.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/schemes.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/voice.js"></script>
+
+    <script>
+        // Section loader
+        async function loadSection(sectionName) {
+            try {
+                const response = await fetch(`sections/${sectionName}.html`);
+                const html = await response.text();
+                const mainContent = document.getElementById('main-content');
+
+                // Check if section already exists, if not, add it
+                if (!document.getElementById(`${sectionName}-section`)) {
+                    mainContent.insertAdjacentHTML('beforeend', html);
+                }
+            } catch (error) {
+                console.error(`Error loading section ${sectionName}:`, error);
+            }
+        }
+
+        // Load all sections on page load
+        document.addEventListener('DOMContentLoaded', async function () {
+            const sections = ['collection', 'penalties', 'requests', 'schemes', 'profile'];
+
+            // Load all sections
+            for (const section of sections) {
+                await loadSection(section);
+            }
+
+            // Initialize navigation after all sections are loaded
+            if (window.nav) {
+                window.nav.showSection('collection');
+            }
+
+            // Initialize voice guidance
+            if (window.VoiceGuide) {
+                window.VoiceGuide.init();
+            }
+
+            // Update stats
+            updateStats();
+        });
+
+        // Update dashboard stats
+        function updateStats() {
+            // These would normally come from an API
+            document.getElementById('today-collections').textContent = '23';
+            document.getElementById('penalties-issued').textContent = '3';
+            document.getElementById('pending-requests').textContent = '5';
+            document.getElementById('earnings-today').textContent = '₹450';
+        }
+    </script>
+</body>
+
+</html>

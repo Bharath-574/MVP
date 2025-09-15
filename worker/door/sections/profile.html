@@ -1,0 +1,479 @@
+<!-- Worker Profile Section -->
+<div id="profile-section" class="section hidden">
+    <!-- Profile Header -->
+    <div class="mb-6">
+        <div class="trust-card rounded-lg p-6">
+            <div class="flex items-center space-x-6">
+                <div class="worker-avatar bg-primary-green rounded-full w-20 h-20 flex items-center justify-center">
+                    <i class="fas fa-user text-white text-3xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-2xl font-semibold mb-2" id="worker-name">Loading...</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div>
+                            <span class="text-gray-500">Worker ID:</span>
+                            <div class="font-medium" id="worker-id">Loading...</div>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">Department:</span>
+                            <div class="font-medium" id="worker-department">Loading...</div>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">Experience:</span>
+                            <div class="font-medium" id="worker-experience">Loading...</div>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">Shift:</span>
+                            <div class="font-medium" id="worker-shift">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="worker-status-indicator online mb-2">
+                        <i class="fas fa-circle text-green-500"></i>
+                        <span class="text-sm font-medium">On Duty</span>
+                    </div>
+                    <button onclick="WorkerProfile.toggleDutyStatus()" class="worker-btn bg-red-600 text-white text-sm">
+                        <i class="fas fa-power-off"></i>
+                        <span>End Shift</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="trust-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-green-600" id="profile-collections">156</div>
+                <div class="text-sm text-gray-600">Total Collections</div>
+            </div>
+            <div class="trust-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-blue-600" id="profile-rating">4.8</div>
+                <div class="text-sm text-gray-600">Average Rating</div>
+            </div>
+            <div class="trust-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-orange-600" id="profile-efficiency">94%</div>
+                <div class="text-sm text-gray-600">Efficiency Rate</div>
+            </div>
+            <div class="trust-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-purple-600" id="profile-rank">12</div>
+                <div class="text-sm text-gray-600">City Rank</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Tabs -->
+    <div class="mb-6">
+        <div class="border-b border-gray-200">
+            <nav class="flex space-x-8">
+                <button onclick="WorkerProfile.showTab('personal')"
+                    class="profile-tab py-2 px-1 border-b-2 font-medium text-sm active">
+                    Personal Information
+                </button>
+                <button onclick="WorkerProfile.showTab('work')"
+                    class="profile-tab py-2 px-1 border-b-2 font-medium text-sm">
+                    Work Details
+                </button>
+                <button onclick="WorkerProfile.showTab('performance')"
+                    class="profile-tab py-2 px-1 border-b-2 font-medium text-sm">
+                    Performance
+                </button>
+                <button onclick="WorkerProfile.showTab('settings')"
+                    class="profile-tab py-2 px-1 border-b-2 font-medium text-sm">
+                    Settings
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Tab Contents -->
+    <div id="profile-tab-contents">
+        <!-- Personal Information Tab -->
+        <div id="personal-tab" class="tab-content">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-user text-primary-green mr-2"></i>
+                        Basic Information
+                    </h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="worker-full-name"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                placeholder="Enter full name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="worker-phone"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                placeholder="Enter phone number">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="worker-email"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                placeholder="Enter email address">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                            <input type="date" id="worker-dob"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                            <select id="worker-gender"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-home text-primary-green mr-2"></i>
+                        Address Information
+                    </h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">House/Building Number</label>
+                            <input type="text" id="worker-house"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                placeholder="Enter house/building number">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Street/Area</label>
+                            <input type="text" id="worker-street"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                placeholder="Enter street/area">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                            <input type="text" id="worker-city"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                placeholder="Enter city">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Pin Code</label>
+                            <input type="text" id="worker-pincode"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                placeholder="Enter pin code">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                            <input type="text" id="worker-state"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                                placeholder="Enter state">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end space-x-3">
+                <button onclick="WorkerProfile.savePersonalInfo()" class="worker-btn bg-primary-green text-white">
+                    <i class="fas fa-save"></i>
+                    <span>Save Changes</span>
+                </button>
+                <button onclick="WorkerProfile.resetPersonalInfo()" class="worker-btn bg-gray-600 text-white">
+                    <i class="fas fa-undo"></i>
+                    <span>Reset</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Work Details Tab -->
+        <div id="work-tab" class="tab-content hidden">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-briefcase text-primary-green mr-2"></i>
+                        Employment Details
+                    </h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Employee ID</label>
+                            <input type="text" id="employee-id" readonly
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" value="WM2024001">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                            <input type="text" id="department" readonly
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
+                                value="Door-to-Door Collection">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Designation</label>
+                            <input type="text" id="designation" readonly
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
+                                value="Collection Worker">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Joining Date</label>
+                            <input type="date" id="joining-date" readonly
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" value="2023-03-15">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Employment Type</label>
+                            <input type="text" id="employment-type" readonly
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" value="Full-time">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-route text-primary-green mr-2"></i>
+                        Current Assignment
+                    </h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Assigned Route</label>
+                            <input type="text" id="assigned-route" readonly
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
+                                value="Sector 12A - Residential">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Area Coverage</label>
+                            <input type="text" id="area-coverage" readonly
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" value="150 households">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Shift Timing</label>
+                            <select id="shift-timing"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                                <option value="morning">Morning (6:00 AM - 2:00 PM)</option>
+                                <option value="afternoon">Afternoon (2:00 PM - 10:00 PM)</option>
+                                <option value="night">Night (10:00 PM - 6:00 AM)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Vehicle Type</label>
+                            <select id="vehicle-type"
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                                <option value="bicycle">Bicycle</option>
+                                <option value="e-rickshaw">E-Rickshaw</option>
+                                <option value="truck">Small Truck</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Supervisor</label>
+                            <input type="text" id="supervisor" readonly
+                                class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50"
+                                value="Mr. Rajesh Kumar (+91 98765 43200)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end space-x-3">
+                <button onclick="WorkerProfile.saveWorkDetails()" class="worker-btn bg-primary-green text-white">
+                    <i class="fas fa-save"></i>
+                    <span>Save Changes</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Performance Tab -->
+        <div id="performance-tab" class="tab-content hidden">
+            <div class="space-y-6">
+                <!-- Performance Charts -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="trust-card rounded-lg p-6">
+                        <h4 class="text-lg font-semibold mb-4">Weekly Performance</h4>
+                        <div class="performance-chart bg-gray-50 rounded-lg p-4 h-48 flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-chart-line text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-600">Performance chart will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="trust-card rounded-lg p-6">
+                        <h4 class="text-lg font-semibold mb-4">Monthly Progress</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Collections Completed</span>
+                                <span class="font-semibold">156/160</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 97.5%"></div>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Customer Satisfaction</span>
+                                <span class="font-semibold">4.8/5.0</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 96%"></div>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">On-time Performance</span>
+                                <span class="font-semibold">94%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-orange-500 h-2 rounded-full" style="width: 94%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Feedback -->
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4">Recent Feedback</h4>
+                    <div class="space-y-4" id="recent-feedback">
+                        <!-- Feedback will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4">Achievements & Badges</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="achievements">
+                        <!-- Achievements will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings-tab" class="tab-content hidden">
+            <div class="space-y-6">
+                <!-- Notification Settings -->
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-bell text-primary-green mr-2"></i>
+                        Notification Preferences
+                    </h4>
+                    <div class="space-y-4">
+                        <label class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">Route Updates</div>
+                                <div class="text-sm text-gray-600">Get notified about route changes</div>
+                            </div>
+                            <input type="checkbox" class="toggle-switch" checked>
+                        </label>
+                        <label class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">New Collection Requests</div>
+                                <div class="text-sm text-gray-600">Alerts for special collection requests</div>
+                            </div>
+                            <input type="checkbox" class="toggle-switch" checked>
+                        </label>
+                        <label class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">Performance Updates</div>
+                                <div class="text-sm text-gray-600">Weekly performance reports</div>
+                            </div>
+                            <input type="checkbox" class="toggle-switch">
+                        </label>
+                        <label class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">Scheme & Benefits</div>
+                                <div class="text-sm text-gray-600">Updates about new schemes and rewards</div>
+                            </div>
+                            <input type="checkbox" class="toggle-switch" checked>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- App Settings -->
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-cog text-primary-green mr-2"></i>
+                        App Settings
+                    </h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Language</label>
+                            <select
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent">
+                                <option value="en">English</option>
+                                <option value="hi">हिंदी (Hindi)</option>
+                                <option value="te">తెలుగు (Telugu)</option>
+                                <option value="ta">தமிழ் (Tamil)</option>
+                            </select>
+                        </div>
+                        <label class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">Voice Guidance</div>
+                                <div class="text-sm text-gray-600">Enable voice instructions and feedback</div>
+                            </div>
+                            <input type="checkbox" class="toggle-switch" id="voice-setting" checked>
+                        </label>
+                        <label class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">High Contrast Mode</div>
+                                <div class="text-sm text-gray-600">Better visibility for low-light conditions</div>
+                            </div>
+                            <input type="checkbox" class="toggle-switch" id="contrast-setting">
+                        </label>
+                        <label class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">Auto Photo Backup</div>
+                                <div class="text-sm text-gray-600">Automatically backup captured photos</div>
+                            </div>
+                            <input type="checkbox" class="toggle-switch" checked>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-shield-alt text-primary-green mr-2"></i>
+                        Security Settings
+                    </h4>
+                    <div class="space-y-4">
+                        <button onclick="WorkerProfile.changePassword()"
+                            class="worker-btn bg-secondary-blue text-white w-full justify-start">
+                            <i class="fas fa-key"></i>
+                            <span>Change Password</span>
+                        </button>
+                        <button onclick="WorkerProfile.setupBiometric()"
+                            class="worker-btn bg-green-600 text-white w-full justify-start">
+                            <i class="fas fa-fingerprint"></i>
+                            <span>Setup Biometric Login</span>
+                        </button>
+                        <button onclick="WorkerProfile.logoutAllDevices()"
+                            class="worker-btn bg-red-600 text-white w-full justify-start">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout from All Devices</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Support & Help -->
+                <div class="trust-card rounded-lg p-6">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center">
+                        <i class="fas fa-question-circle text-primary-green mr-2"></i>
+                        Support & Help
+                    </h4>
+                    <div class="space-y-4">
+                        <button onclick="WorkerProfile.contactSupport()"
+                            class="worker-btn bg-blue-600 text-white w-full justify-start">
+                            <i class="fas fa-headset"></i>
+                            <span>Contact Support</span>
+                        </button>
+                        <button onclick="WorkerProfile.viewFAQ()"
+                            class="worker-btn bg-gray-600 text-white w-full justify-start">
+                            <i class="fas fa-book"></i>
+                            <span>View FAQ</span>
+                        </button>
+                        <button onclick="WorkerProfile.reportBug()"
+                            class="worker-btn bg-orange-600 text-white w-full justify-start">
+                            <i class="fas fa-bug"></i>
+                            <span>Report a Bug</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
