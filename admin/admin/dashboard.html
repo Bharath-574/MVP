@@ -1,123 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ULB Admin Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styleadmin.css">
+ <meta charset="UTF-8">
+ <title>ULB Admin Dashboard</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="styleadmin.css">
 </head>
 <body>
-  <!-- ===== SIDEBAR ===== -->
   <aside>
-    <div class="sidebar-title">Admin Panel</div>
-    <div class="nav-item active" onclick="showSection('dashboard')">Dashboard</div>
-    <div class="nav-item" onclick="showSection('complaints')">Complaints</div>
-    <div class="nav-item" onclick="showSection('users')">User Management</div>
-    <div class="nav-item" onclick="showSection('reports')">Reports</div>
-    <div class="nav-item" onclick="showSection('announcements')">Announcements</div>
-    <div class="nav-item" onclick="showSection('settings')">Settings</div>
-  </aside>
+  <div class="sidebar-title">Admin Panel</div>
+  <div class="nav-item active" onclick="showSection('dashboard')">Dashboard</div>
+  <div class="nav-item" onclick="showSection('complaints')">Complaints</div>
+  <div class="nav-item" onclick="showSection('users')">User Management</div>
+  <div class="nav-item" onclick="showSection('reports')">Reports</div>
+  <div class="nav-item" onclick="showSection('announcements')">Announcements</div>
+  <div class="nav-item" onclick="showSection('waste-management')">Waste Management</div>
+  <div class="nav-item" onclick="showSection('settings')">Settings</div>
+ </aside>
 
-  <!-- ===== MAIN CONTENT ===== -->
   <main>
-    <header>
-      <h1>ULB Admin Dashboard</h1>
-      <div>Admin • Logout</div>
-    </header>
+  <header>
+   <h1>ULB Admin Dashboard</h1>
+   <div>Admin • Logout</div>
+  </header>
 
-    <!-- DASHBOARD SECTION -->
     <section id="dashboard-section">
-      <div class="cards">
-        <div class="card">
-          <h3>Total Complaints</h3>
-          <p id="total-complaints"></p>
-        </div>
-        <div class="card">
-          <h3>Active Green Champions</h3>
-          <p id="green-champions"></p>
-        </div>
-        <div class="card">
-          <h3>Pending Tasks</h3>
-          <p id="pending-tasks"></p>
-        </div>
-      </div>
-    </section>
+   <div class="cards">
+    <div class="card">
+     <h3>Total Complaints</h3>
+     <p id="total-complaints"></p>
+    </div>
+    <div class="card">
+     <h3>Active Green Champions</h3>
+     <p id="green-champions"></p>
+    </div>
+    <div class="card">
+     <h3>Pending Tasks</h3>
+     <p id="pending-tasks"></p>
+    </div>
+   </div>
+  </section>
 
-    <!-- COMPLAINTS SECTION -->
     <section id="complaints-section" class="hidden">
-      <h2>Complaints List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th><th>Category</th><th>Ward</th><th>Status</th><th>Priority</th>
-          </tr>
-        </thead>
-        <tbody id="complaints-table"></tbody>
-      </table>
-    </section>
+   <h2>Complaints List</h2>
+   <table>
+    <thead>
+     <tr>
+      <th>ID</th><th>Category</th><th>Ward</th><th>Status</th><th>Priority</th>
+     </tr>
+    </thead>
+    <tbody id="complaints-table"></tbody>
+   </table>
+  </section>
 
-    <!-- USER MANAGEMENT SECTION -->
     <section id="users-section" class="hidden">
-      <h2>User Management</h2>
-      <h3>Green Champions</h3>
-      <table>
-        <thead>
-          <tr><th>Name</th><th>ID</th><th>Status</th></tr>
-        </thead>
-        <tbody id="green-champions-table"></tbody>
-      </table>
+   <h2>User Management</h2>
+   <h3>Green Champions</h3>
+   <table>
+    <thead>
+     <tr><th>Name</th><th>ID</th><th>Status</th></tr>
+    </thead>
+    <tbody id="green-champions-table"></tbody>
+   </table>
 
-      <h3>Data Analysts</h3>
-      <table>
-        <thead>
-          <tr><th>Name</th><th>ID</th><th>Status</th></tr>
-        </thead>
-        <tbody id="data-analysts-table"></tbody>
-      </table>
+   <h3>Data Analysts</h3>
+   <table>
+    <thead>
+     <tr><th>Name</th><th>ID</th><th>Status</th></tr>
+    </thead>
+    <tbody id="data-analysts-table"></tbody>
+   </table>
 
-      <h3>Add User</h3>
-      <form onsubmit="addUser(event)">
-        <input type="text" id="user-name" placeholder="Name" required>
-        <input type="text" id="user-id" placeholder="User ID" required>
-        <input type="password" id="user-password" placeholder="Password" required>
-        <select id="user-role" required>
-          <option value="">Select Role</option>
-          <option value="Green Champion">Green Champion</option>
-          <option value="Data Analyst">Data Analyst</option>
-        </select>
-        <button type="submit">Add User</button>
-      </form>
-    </section>
+   <h3>Add User</h3>
+   <form onsubmit="addUser(event)">
+    <input type="text" id="user-name" placeholder="Name" required>
+    <input type="text" id="user-id" placeholder="User ID" required>
+    <input type="password" id="user-password" placeholder="Password" required>
+    <select id="user-role" required>
+     <option value="">Select Role</option>
+     <option value="Green Champion">Green Champion</option>
+     <option value="Data Analyst">Data Analyst</option>
+    </select>
+    <button type="submit">Add User</button>
+   </form>
+  </section>
 
-    <!-- REPORTS SECTION -->
     <section id="reports-section" class="hidden">
-      <h2>Reports</h2>
-      <div class="card">
-        <p>Reports and charts will be displayed here.</p>
-      </div>
-    </section>
+   <h2>Reports</h2>
+   <div class="card">
+    <p>Reports and charts will be displayed here.</p>
+   </div>
+  </section>
 
-    <!-- ANNOUNCEMENTS SECTION -->
     <section id="announcements-section" class="hidden">
-      <h2>Create Announcement</h2>
-      <form onsubmit="createAnnouncement(event)">
-        <input type="text" id="announcement-title" placeholder="Title" required>
-        <textarea id="announcement-message" placeholder="Message" required></textarea>
-        <button type="submit">Create</button>
-      </form>
-      <h2>Existing Announcements</h2>
-      <div id="announcements-list"></div>
-    </section>
+   <h2>Create Announcement</h2>
+   <form onsubmit="createAnnouncement(event)">
+    <input type="text" id="announcement-title" placeholder="Title" required>
+    <textarea id="announcement-message" placeholder="Message" required></textarea>
+    <button type="submit">Create</button>
+   </form>
+   <h2>Existing Announcements</h2>
+   <div id="announcements-list"></div>
+  </section>
 
-    <!-- SETTINGS SECTION -->
+    <section id="waste-management-section" class="hidden">
+   <h2>Waste Management Dashboard</h2>
+   <div class="cards">
+    <div class="card">
+     <h3>Total Waste Generated (MT)</h3>
+     <p id="total-waste"></p>
+    </div>
+    <div class="card">
+     <h3>Recycled Waste (MT)</h3>
+     <p id="recycled-waste"></p>
+    </div>
+    <div class="card">
+     <h3>Unrecycled Waste (MT)</h3>
+     <p id="unrecycled-waste"></p>
+    </div>
+   </div>
+
+   <<h3>Waste Recycling by Ward</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Ward</th>
+            <th>Recycled (MT)</th>
+            <th>Unrecycled (MT)</th>
+          </tr>
+        </thead>
+        <tbody id="ward-waste-table"></tbody>
+      </table>
+
+      <h3>Waste Recycling by Category</h3>
+      <div class="cards">
+        <div class="card">
+          <h4>Wet Waste</h4>
+          <p>Recycled: <span id="wet-recycled"></span></p>
+          <p>Unrecycled: <span id="wet-unrecycled"></span></p>
+        </div>
+        <div class="card">
+          <h4>Dry Waste</h4>
+          <p>Recycled: <span id="dry-recycled"></span></p>
+          <p>Unrecycled: <span id="dry-unrecycled"></span></p>
+        </div>
+        <div class="card">
+          <h4>Hazardous Waste</h4>
+          <p>Recycled: <span id="hazardous-recycled"></span></p>
+          <p>Unrecycled: <span id="hazardous-unrecycled"></span></p>
+        </div>
+      </div>
+  </section>
     <section id="settings-section" class="hidden">
-      <h2>Settings</h2>
-      <div class="card">
-        <p>System configuration options will go here.</p>
-      </div>
-    </section>
-  </main>
+   <h2>Settings</h2>
+   <div class="card">
+    <p>System configuration options will go here.</p>
+   </div>
+  </section>
+ </main>
 
-  <script src="scriptadmin.js"></script>
+ <script src="scriptadmin.js"></script>
 </body>
 </html>
