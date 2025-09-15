@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,206 +10,415 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         'main-heading': '#263238',
                         'card-border-light': '#e0e0e0',
-                        'dark-bg': '#181a20',
-                        'dark-card-bg': '#23272f',
-                        'dark-border': '#2d3748',
-                        'dark-text': '#f7fafc',
-                        'dark-headings': '#e0e7ef',
-                        'dark-text-secondary': '#cfd8dc',
-                        'dark-green': '#388e3c',
-                        'dark-blue': '#1565c0',
-                        'dark-orange': '#ff9800',
                     }
                 }
             }
         }
     </script>
-    <!-- Inter Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <!-- Inter Font (optimized loading) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        media="print" onload="this.media='all'; this.onload=null;">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
     <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles optimized for performance */
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* Fixed header styles */
+        .header-fixed {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 9999 !important;
+            width: 100% !important;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main content area with proper top spacing */
+        .main-content {
+            min-height: calc(100vh - 80px);
+        }
+
+        body {
+            min-height: 200vh;
+            padding-bottom: 28vh;
+        }
+
         .text-main-heading {
             color: #263238;
         }
-        .dark .text-main-heading {
-            color: #e0e7ef;
-        }
+
         .text-dark-green {
             color: #388e3c;
         }
+
         /* Hide a div while displaying another one. */
         .hidden-view {
             display: none;
         }
 
-        /* Responsive Background Image Collage */
-        body {
-            background-image: url("https://placehold.co/1920x1080/E8F5E9/66BB6A?text=Citizen+Segregating+Waste"), url("https://placehold.co/1920x1080/CFD8DC/546E7A?text=Worker+Collecting+Waste"), url("https://placehold.co/1920x1080/B3E5FC/039BE5?text=Team+Working+Together");
+        /* Responsive Background Image Collage - optimized for performance */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                url("https://placehold.co/1920x1080/E8F5E9/66BB6A?text=Citizen+Segregating+Waste"),
+                url("https://placehold.co/1920x1080/CFD8DC/546E7A?text=Worker+Collecting+Waste"),
+                url("https://placehold.co/1920x1080/B3E5FC/039BE5?text=Team+Working+Together");
             background-repeat: no-repeat, no-repeat, no-repeat;
             background-position: left bottom, center bottom, right bottom;
             background-size: 33.33%, 33.33%, 33.33%;
             background-blend-mode: multiply;
+            z-index: -1;
+            opacity: 0.3;
+            will-change: auto;
+            transform: translateZ(0);
+        }
+
+        /* HomeView container styling with scroll animation - optimized for performance */
+        #homeView {
+            padding: 2rem 0;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease-out;
+            margin-top: 8rem;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* Scroll-triggered upward movement - adjusted to stop at collage line */
+        #homeView.scrolled {
+            transform: translateY(-8vh) translateZ(0);
+        }
+
+        /* Content container with semi-transparent background - optimized */
+        .content-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(224, 224, 224, 0.8);
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20vh;
+            will-change: background;
+            transform: translateZ(0);
+        }
+
+        /* Scrolled state content styling - optimized */
+        #homeView.scrolled .content-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        /* Custom Language Selector Button */
+        .language-selector {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-btn {
+            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+            color: white;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-btn:hover {
+            background: linear-gradient(135deg, #65a30d 0%, #4d7c0f 100%);
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.15);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(224, 224, 224, 0.8);
+            min-width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            margin-top: 8px;
+        }
+
+        .language-dropdown.show {
+            display: block;
+        }
+
+        .language-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(224, 224, 224, 0.5);
+        }
+
+        .language-option:last-child {
+            border-bottom: none;
+        }
+
+        .language-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .language-option.selected {
+            background-color: #dcfce7;
+            color: #16a34a;
+            font-weight: 500;
+        }
+
+        /* Video card styling */
+        .video-card {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(224, 224, 224, 0.8);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Video iframe styling */
+        .video-iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: 0.5rem;
+            border: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 768px) {
-            body {
+            .video-iframe {
+                height: 280px;
+            }
+
+            .main-content {
+                margin-top: 70px;
+            }
+
+            body::before {
                 background-position: center bottom;
                 background-size: 100%;
             }
+
+            .language-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
         }
 
-        /* Hide the Google top banner */
+        /* Google Translate Integration */
         .goog-te-banner-frame.skiptranslate {
-        display: none !important;
+            display: none !important;
         }
+
         body {
-        top: 0px !important;
+            top: 0px !important;
         }
 
-        /* Hide Google logo/icon */
         .goog-logo-link,
-        .goog-te-gadget span {
-        display: none !important;
+        .goog-te-gadget span,
+        .goog-te-gadget>div>a {
+            display: none !important;
         }
 
-        /* Clean styling for the dropdown */
+        /* Hidden Google Translate element */
         #google_translate_element {
-        background: #1565c0; /* your palette */
-        padding: 6px 10px;
-        border-radius: 8px;
-        display: inline-block;
+            display: none !important;
         }
-
-        #google_translate_element select {
-        background: #1565c0;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 14px;
-        cursor: pointer;
-        }
-
-        #google_translate_element select:hover {
-        background: #0d47a1;
-        }
-
-
     </style>
 
 </head>
-<body class="bg-gray-100 dark:bg-dark-bg min-h-screen">
 
-    <!-- Navigation Bar -->
-    <nav class="bg-white dark:bg-dark-card-bg shadow-md p-4 sm:p-6 flex items-center justify-between w-full fixed top-0 z-50">
-        <!-- Project Name -->
-        <h1 class="text-xl sm:text-2xl font-bold text-main-heading dark:text-dark-headings absolute left-1/2 -translate-x-1/2">
-            Welcome to Waste Management Portal
-        </h1>
-
-
-
-        <!-- for translation  -->
-        <div id="google_translate_element"></div>
-
-
-
-        <!-- Buttons on the right -->
-        <div class="flex items-center space-x-4 ml-auto">
-            <!-- Dark Mode Toggle Button -->
-            <button id="theme-toggle" class="p-2 rounded-full text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-800 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path id="sun-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    <path id="moon-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-            </button>
-            <!-- Login/Logout Button -->
-            <a href="login.html" id="loginLink" class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-lime-300">
-                Login
-            </a>
-        </div>
-    </nav>
-    
-<div id="homeView" class="mt-32 mb-80">
-    <div class="bg-white dark:bg-dark-card-bg dark:border-dark-border max-w-4xl mx-auto p-8 rounded-xl shadow-lg border border-card-border-light transition-colors duration-300 relative z-10">
-        <main class="space-y-12">
-            <section>
-                <h2 class="text-2xl font-semibold text-main-heading dark:text-dark-headings mb-4">What is Waste?</h2>
-                <p class="text-gray-600 dark:text-dark-text leading-relaxed">Waste is anything we throw away that we don't need. But not all waste is the same! For effective management and a cleaner environment, it is crucial to sort our waste into three main categories. This simple step at home makes a huge difference for our communities and our planet.</p>
-            </section>
-            <section class="grid md:grid-cols-3 gap-6">
-                <div class="bg-blue-50 dark:bg-dark-blue p-6 rounded-lg shadow-sm border border-blue-200 dark:border-dark-border">
-                    <h3 class="text-xl font-medium text-blue-700 dark:text-dark-headings mb-2">Wet Waste</h3>
-                    <p class="text-blue-600 dark:text-dark-text-secondary">This includes all kitchen waste like leftover food, vegetable and fruit peels, tea leaves, and garden waste like leaves and flowers. It is biodegradable and can be turned into useful compost!</p>
+<body>
+    <!-- Fixed Navigation Header -->
+    <header class="header-fixed">
+        <nav class="bg-white shadow-lg px-4 sm:px-6 py-4 flex items-center justify-between">
+            <!-- Language Selector on Left -->
+            <div class="language-selector">
+                <button class="language-btn" id="languageBtn">
+                    <span>🌐</span>
+                    <span id="currentLanguage">English</span>
+                    <span>▼</span>
+                </button>
+                <div class="language-dropdown" id="languageDropdown">
+                    <div class="language-option selected" data-lang="en">English</div>
+                    <div class="language-option" data-lang="hi">हिन्दी (Hindi)</div>
+                    <div class="language-option" data-lang="bn">বাংলা (Bengali)</div>
+                    <div class="language-option" data-lang="te">తెలుగు (Telugu)</div>
+                    <div class="language-option" data-lang="mr">मराठी (Marathi)</div>
+                    <div class="language-option" data-lang="ta">தமிழ் (Tamil)</div>
+                    <div class="language-option" data-lang="gu">ગુજરાતી (Gujarati)</div>
+                    <div class="language-option" data-lang="kn">ಕನ್ನಡ (Kannada)</div>
+                    <div class="language-option" data-lang="ml">മലയാളം (Malayalam)</div>
+                    <div class="language-option" data-lang="or">ଓଡ଼ିଆ (Odia)</div>
+                    <div class="language-option" data-lang="pa">ਪੰਜਾਬੀ (Punjabi)</div>
+                    <div class="language-option" data-lang="as">অসমীয়া (Assamese)</div>
+                    <div class="language-option" data-lang="ur">اردو (Urdu)</div>
                 </div>
-                <div class="bg-green-50 dark:bg-dark-green p-6 rounded-lg shadow-sm border border-green-200 dark:border-dark-border">
-                    <h3 class="text-xl font-medium text-green-700 dark:text-dark-headings mb-2">Dry Waste</h3>
-                    <p class="text-green-600 dark:text-dark-text-secondary">This includes things like plastic bottles, paper, cardboard, glass, metal, and old clothes. These items can be recycled and reused, reducing the need to create new materials.</p>
-                </div>
-                <div class="bg-red-50 dark:bg-dark-orange p-6 rounded-lg shadow-sm border border-red-200 dark:border-dark-border">
-                    <h3 class="text-xl font-medium text-red-600 dark:text-dark-headings mb-2">Hazardous Waste</h3>
-                    <p class="text-red-600 dark:text-dark-text-secondary">This is waste that can be harmful to people and the environment. Examples include batteries, light bulbs, old medicines, and chemical cleaners. They need special care and disposal.</p>
-                </div>
-            </section>
-            <section>
-                <h2 class="text-2xl font-semibold text-main-heading dark:text-dark-headings mb-4 text-center">Watch and Learn: How to Segregate Waste</h2>
-                <div class="bg-white dark:bg-dark-card-bg p-6 rounded-lg shadow-sm border border-card-border-light dark:border-dark-border">
-                    <div class="aspect-w-16 aspect-h-9 w-full rounded-lg overflow-hidden shadow-md">
-                        <iframe
-                            class="w-full h-full"
-                            src="https://www.youtube.com/embed/AEWDcHSpR1g"
-                            title="The Cleanest Cities Of India | Ep-7 | Women groups turn Dhenkanal's waste into wealth"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-            </section>
-            <section class="text-center">
-                <h2 class="text-2xl font-semibold text-main-heading dark:text-dark-headings mb-4">Our Mission and Roles</h2>
-                <p class="text-gray-600 dark:text-dark-text leading-relaxed max-w-2xl mx-auto">This platform connects citizens, waste workers, and administrators to build a streamlined waste management system.</p>
-                <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-gray-50 dark:bg-dark-card-bg p-6 rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-                        <h4 class="text-lg font-medium text-gray-800 dark:text-dark-headings mb-2">Citizen</h4>
-                        <p class="text-gray-600 dark:text-dark-text-secondary">You can easily report issues, track waste collection, and learn more about proper segregation.</p>
-                    </div>
-                    <div class="bg-gray-50 dark:bg-dark-card-bg p-6 rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-                        <h4 class="text-lg font-medium text-gray-800 dark:text-dark-headings mb-2">Worker</h4>
-                        <ul class="text-gray-600 dark:text-dark-text-secondary list-inside list-disc text-left inline-block">
-                            <li>Door-to-door Collector</li>
-                            <li>Local Collector</li>
-                            <li>Landfield Operator</li>
-                        </ul>
-                    </div>
-                    <div class="bg-gray-50 dark:bg-dark-card-bg p-6 rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-                        <h4 class="text-lg font-medium text-gray-800 dark:text-dark-headings mb-2">Admin</h4>
-                        <ul class="text-gray-600 dark:text-dark-text-secondary list-inside list-disc text-left inline-block">
-                            <li>ULB (Urban Local Body)</li>
-                            <li>Data Analyst</li>
-                            <li>Green Champion</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+            </div>
+
+            <!-- Project Name -->
+            <h1 class="text-xl sm:text-2xl font-bold text-main-heading text-center flex-1">
+                Welcome to Waste Management Portal
+            </h1>
+
+            <!-- Login Button on Right -->
+            <div>
+                <a href="login.html" id="loginLink"
+                    class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 sm:px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-lime-300">
+                    Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Google Translate Element - visible but hidden with CSS -->
+    <div id="google_translate_element"
+        style="position: fixed; top: 0; left: -200px; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -1;">
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div id="homeView">
+            <div class="content-container max-w-4xl mx-auto p-8 m-4">
+                <main class="space-y-12">
+                    <section>
+                        <h2 class="text-2xl font-semibold text-main-heading mb-4">What is Waste?
+                        </h2>
+                        <p class="text-gray-600 leading-relaxed">Waste is anything we throw away that we
+                            don't need. But not all waste is the same! For effective management and a cleaner
+                            environment,
+                            it is crucial to sort our waste into three main categories. This simple step at home makes a
+                            huge difference for our communities and our planet.</p>
+                    </section>
+                    <section class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                            <h3 class="text-xl font-medium text-blue-700 mb-2">Wet Waste</h3>
+                            <p class="text-blue-600">This includes all kitchen waste like
+                                leftover food, vegetable and fruit peels, tea leaves, and garden waste like leaves and
+                                flowers. It is biodegradable and can be turned into useful compost!</p>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg shadow-sm border border-green-200">
+                            <h3 class="text-xl font-medium text-green-700 mb-2">Dry Waste</h3>
+                            <p class="text-green-600">This includes things like plastic
+                                bottles, paper, cardboard, glass, metal, and old clothes. These items can be recycled
+                                and
+                                reused, reducing the need to create new materials.</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-lg shadow-sm border border-red-200">
+                            <h3 class="text-xl font-medium text-red-600 mb-2">Hazardous Waste</h3>
+                            <p class="text-red-600">This is waste that can be harmful to
+                                people and the environment. Examples include batteries, light bulbs, old medicines, and
+                                chemical cleaners. They need special care and disposal.</p>
+                        </div>
+                    </section>
+                    <section>
+                        <h2 class="text-2xl font-semibold text-main-heading mb-6 text-center">Watch
+                            and Learn: How to Segregate Waste</h2>
+                        <div class="video-card">
+                            <div class="mb-4">
+                                <h3 class="text-lg font-medium text-gray-800 mb-2">
+                                    The Cleanest Cities Of India | Women groups turn Dhenkanal's waste into wealth
+                                </h3>
+                                <p class="text-gray-600 text-sm">
+                                    Learn how communities are transforming waste management through proper segregation
+                                    and
+                                    innovative solutions.
+                                </p>
+                            </div>
+                            <iframe class="video-iframe" src="https://www.youtube.com/embed/AEWDcHSpR1g"
+                                title="The Cleanest Cities Of India | Ep-7 | Women groups turn Dhenkanal's waste into wealth"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </section>
+                    <section class="text-center">
+                        <h2 class="text-2xl font-semibold text-main-heading mb-4">Our Mission and
+                            Roles</h2>
+                        <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">This platform
+                            connects citizens, waste workers, and administrators to build a streamlined waste management
+                            system.</p>
+                        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h4 class="text-lg font-medium text-gray-800 mb-2">Citizen</h4>
+                                <p class="text-gray-600">You can easily report issues, track
+                                    waste collection, and learn more about proper segregation.</p>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h4 class="text-lg font-medium text-gray-800 mb-2">Worker</h4>
+                                <ul class="text-gray-600 list-inside list-disc text-left inline-block">
+                                    <li>Door-to-door Collector</li>
+                                    <li>Local Collector</li>
+                                    <li>Landfield Operator</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h4 class="text-lg font-medium text-gray-800 mb-2">Admin</h4>
+                                <ul class="text-gray-600 list-inside list-disc text-left inline-block">
+                                    <li>ULB (Urban Local Body)</li>
+                                    <li>Data Analyst</li>
+                                    <li>Green Champion</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
 
 
 
-            <!-- just trying to make a button -->
-            <!-- <div class="mt-8 text-center">
-                <p class="text-gray-600 dark:text-dark-text-secondary mb-4">To get the best experience, install this app on your device.</p>
+                    <!-- just trying to make a button -->
+                    <!-- <div class="mt-8 text-center">
+                <p class="text-gray-600 mb-4">To get the best experience, install this app on your device.</p>
                 <button id="installButton" class=" px-6 py-3 bg-lime-500 text-white font-semibold rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-lime-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M13 14V10a1 1 0 00-1-1h-1a1 1 0 00-1 1v4h-.586l3.293 3.293a1 1 0 001.414-1.414L13 14zM8 8a1 1 0 00-1-1H6a1 1 0 00-1 1v6h.586l-3.293 3.293a1 1 0 001.414 1.414L8 14z" />
@@ -217,115 +427,251 @@
                     Install App
                 </button>
             </div> -->
-        </main>
+                </main>
+                </main>
+            </div>
+        </div>
     </div>
-</div>
-    
+
     <script>
+        // Language Selector Functionality
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdown = document.getElementById('languageDropdown');
+        const currentLanguageSpan = document.getElementById('currentLanguage');
         const homeView = document.getElementById('homeView');
-        const loginView = document.getElementById('loginView');
-        const loginButton = document.getElementById('loginButton');
-        const returnHomeLink = document.getElementById('returnHome');
-        const loginForm = document.getElementById('loginForm');
-        
-        // --- Dark Mode Functionality ---
-        const themeToggle = document.getElementById('theme-toggle');
-        const sunIcon = document.getElementById('sun-icon');
-        const moonIcon = document.getElementById('moon-icon');
 
-        function initializeTheme() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-                moonIcon.classList.remove('hidden');
-                sunIcon.classList.add('hidden');
-            } else {
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
+        // Language mapping
+        const languages = {
+            'en': 'English',
+            'hi': 'हिन्दी',
+            'bn': 'বাংলা',
+            'te': 'తెలుగు',
+            'mr': 'मराठी',
+            'ta': 'தமிழ்',
+            'gu': 'ગુજરાતી',
+            'kn': 'ಕನ್ನಡ',
+            'ml': 'മലയാളം',
+            'or': 'ଓଡ଼ିଆ',
+            'pa': 'ਪੰਜਾਬੀ',
+            'as': 'অসমীয়া',
+            'ur': 'اردو'
+        };
+
+        // Toggle language dropdown
+        languageBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            languageDropdown.classList.toggle('show');
+        });
+
+        // Handle language selection
+        languageDropdown.addEventListener('click', (e) => {
+            if (e.target.classList.contains('language-option')) {
+                const selectedLang = e.target.getAttribute('data-lang');
+                const selectedText = languages[selectedLang];
+
+                console.log('Language selected:', selectedLang, selectedText);
+
+                // Update current language display
+                currentLanguageSpan.textContent = selectedText;
+
+                // Update selected state
+                document.querySelectorAll('.language-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                e.target.classList.add('selected');
+
+                // Close dropdown
+                languageDropdown.classList.remove('show');
+
+                // Trigger Google Translate
+                translatePage(selectedLang);
+            }
+        });
+
+        // Simple and direct translation function
+        function translatePage(langCode) {
+            console.log('🌐 Translating to:', langCode);
+
+            // Find the Google Translate select element
+            const selectElement = document.querySelector('.goog-te-combo');
+
+            if (!selectElement) {
+                console.warn('⚠️ Google Translate not ready yet, retrying...');
+
+                // Retry up to 5 times with 1 second intervals
+                let retries = 0;
+                const retryTranslation = () => {
+                    retries++;
+                    const select = document.querySelector('.goog-te-combo');
+                    if (select) {
+                        console.log('🔄 Found translate element on retry', retries);
+                        performTranslation(select, langCode);
+                    } else if (retries < 5) {
+                        setTimeout(retryTranslation, 1000);
+                    } else {
+                        console.error('❌ Translation failed - Google Translate not available');
+                        alert('Translation service is not ready. Please wait a moment and try again.');
+                    }
+                };
+
+                setTimeout(retryTranslation, 1000);
+                return;
+            }
+
+            performTranslation(selectElement, langCode);
+        }
+
+        // Perform the actual translation
+        function performTranslation(selectElement, langCode) {
+            console.log('🎯 Performing translation to:', langCode);
+
+            // Check if the language option exists
+            const option = selectElement.querySelector(`option[value="${langCode}"]`);
+            if (!option) {
+                console.error('❌ Language not supported:', langCode);
+                console.log('📋 Available options:', Array.from(selectElement.options).map(opt => opt.value));
+                alert(`Language "${langCode}" is not available for translation.`);
+                return;
+            }
+
+            // Set the value and trigger change
+            selectElement.value = langCode;
+            const event = new Event('change', { bubbles: true, cancelable: true });
+            selectElement.dispatchEvent(event);
+
+            console.log('✅ Translation triggered successfully');
+        }        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            languageDropdown.classList.remove('show');
+        });
+
+        // Scroll behavior for moving homeView up - optimized for performance
+        function initializeScrollBehavior() {
+            let scrollThreshold = 50; // Reduced threshold for faster response
+            let isScrolled = false;
+            let ticking = false;
+
+            function updateScrollState() {
+                const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+                if (scrollPosition > scrollThreshold && !isScrolled) {
+                    homeView.classList.add('scrolled');
+                    isScrolled = true;
+                } else if (scrollPosition <= scrollThreshold && isScrolled) {
+                    homeView.classList.remove('scrolled');
+                    isScrolled = false;
+                }
+                ticking = false;
+            }
+
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(updateScrollState);
+                    ticking = true;
+                }
+            }
+
+            // Use passive listener for better performance
+            window.addEventListener('scroll', onScroll, {
+                passive: true,
+                capture: false
+            });
+
+            // Ensure adequate scroll space
+            if (document.body.scrollHeight <= window.innerHeight) {
+                document.body.style.minHeight = '200vh';
             }
         }
 
-        themeToggle.addEventListener('click', () => {
-            const isDarkMode = document.documentElement.classList.toggle('dark');
-            if (isDarkMode) {
-                localStorage.setItem('theme', 'dark');
-                moonIcon.classList.remove('hidden');
-                sunIcon.classList.add('hidden');
-            } else {
-                localStorage.setItem('theme', 'light');
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            }
-        });
-        
-        // --- View Management and Login Logic ---
-        function showView(viewId) {
-            homeView.classList.add('hidden-view');
-            loginView.classList.add('hidden-view');
-            
-            if (viewId === 'home') {
-                homeView.classList.remove('hidden-view');
-                updateLoginButtonState(false);
-            } else if (viewId === 'login') {
-                loginView.classList.remove('hidden-view');
-            }
-        }
-        
-        function updateLoginButtonState(isLoggedIn) {
-            if (isLoggedIn) {
-                loginButton.textContent = 'Logout';
-                loginButton.classList.remove('bg-lime-500', 'hover:bg-lime-600');
-                loginButton.classList.add('bg-red-500', 'hover:bg-red-600');
-            } else {
-                loginButton.textContent = 'Login';
-                loginButton.classList.remove('bg-red-500', 'hover:bg-red-600');
-                loginButton.classList.add('bg-lime-500', 'hover:bg-lime-600');
-            }
-        }
-        
-        // Event listeners
-        loginButton.addEventListener('click', () => {
-            if (loginButton.textContent === 'Login') {
-                showView('login');
-            } else {
-                localStorage.removeItem('isLoggedIn');
-                showView('home');
-            }
-        });
-        
-        returnHomeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showView('home');
-        });
-        
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Simulate a successful login
-            localStorage.setItem('isLoggedIn', 'true');
-            showView('home');
-            updateLoginButtonState(true);
-        });
-
-        // Initialize on page load
+        // Initialize on page load with enhanced error handling
         document.addEventListener('DOMContentLoaded', () => {
-            initializeTheme();
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            updateLoginButtonState(isLoggedIn);
-            showView('home'); // Always start on the home page
+            console.log('DOM Content Loaded');
+            initializeScrollBehavior();
+
+            // Multiple initialization attempts for Google Translate
+            let initAttempts = 0;
+            const maxAttempts = 5;
+
+            const tryInitialize = () => {
+                initAttempts++;
+                console.log(`Google Translate initialization attempt ${initAttempts}/${maxAttempts}`);
+
+                if (typeof google !== 'undefined' && google.translate && google.translate.TranslateElement) {
+                    console.log('Google Translate script loaded, initializing...');
+                    googleTranslateElementInit();
+                } else if (initAttempts < maxAttempts) {
+                    console.log(`Google Translate not ready, retrying in ${initAttempts * 1000}ms...`);
+                    setTimeout(tryInitialize, initAttempts * 1000);
+                } else {
+                    console.error('Google Translate failed to load after', maxAttempts, 'attempts');
+                    console.log('Trying to load Google Translate manually...');
+
+                    // Try to load the script manually as a backup
+                    const script = document.createElement('script');
+                    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+                    script.async = true;
+                    script.onerror = () => console.error('Failed to load Google Translate script manually');
+                    script.onload = () => console.log('Google Translate script loaded manually');
+                    document.head.appendChild(script);
+                }
+            };
+
+            // Start initialization attempts
+            tryInitialize();
         });
-    </script>
 
-
-    <!-- for translation -->
-    <script type="text/javascript">
+        // Google Translate Initialization - simplified approach
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement(
-            {pageLanguage: 'en'}, // default page language
-            'google_translate_element'
-            );
-        }
-    </script>
+            console.log('🚀 Starting Google Translate initialization...');
 
+            try {
+                // Simple initialization
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,bn,te,mr,ta,gu,kn,ml,or,pa,as,ur',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false
+                }, 'google_translate_element');
+
+                console.log('✅ Google Translate widget created');
+
+                // Wait for the select element to appear
+                const waitForSelect = () => {
+                    const selectElement = document.querySelector('.goog-te-combo');
+                    if (selectElement) {
+                        console.log('🎯 Translation select element found!');
+                        console.log('📋 Available languages:', Array.from(selectElement.options).map(opt => `${opt.value}: ${opt.text}`));
+
+                        // Make sure it's working by adding a change listener for testing
+                        selectElement.addEventListener('change', function () {
+                            console.log('🔄 Language changed to:', this.value);
+                        });
+
+                        return true;
+                    }
+                    return false;
+                };
+
+                // Check immediately, then retry if needed
+                if (!waitForSelect()) {
+                    let attempts = 0;
+                    const interval = setInterval(() => {
+                        attempts++;
+                        if (waitForSelect() || attempts > 20) {
+                            clearInterval(interval);
+                            if (attempts > 20) {
+                                console.error('❌ Google Translate select not found after 20 attempts');
+                            }
+                        }
+                    }, 500);
+                }
+
+            } catch (error) {
+                console.error('❌ Error initializing Google Translate:', error);
+            }
+        }        // Make the function globally available for the callback
+        window.googleTranslateElementInit = googleTranslateElementInit;
+    </script>
 
     <!-- Service Worker Registration for PWA -->
     <script>
@@ -344,7 +690,10 @@
             });
         }
     </script>
+
+    <!-- Google Translate Script with proper protocol -->
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
+
 </html>

@@ -1,0 +1,176 @@
+<!-- Waste Collection Section -->
+<div id="collection-section" class="section">
+    <!-- Route Overview -->
+    <div class="mb-6">
+        <div class="trust-card rounded-lg p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold flex items-center">
+                    <i class="fas fa-route text-primary-green mr-3"></i>
+                    Today's Route - Sector 12A
+                </h3>
+                <div class="flex items-center space-x-4">
+                    <button onclick="WasteCollection.getCurrentLocation()"
+                        class="worker-btn bg-secondary-blue text-white">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>My Location</span>
+                    </button>
+                    <button onclick="WasteCollection.refreshRoute()" class="worker-btn bg-primary-green text-white">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Refresh</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 mb-4">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-gray-800" id="route-total">25</div>
+                    <div class="text-sm text-gray-600">Total Houses</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600" id="route-completed">18</div>
+                    <div class="text-sm text-gray-600">Completed</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-red-600" id="route-pending">7</div>
+                    <div class="text-sm text-gray-600">Pending</div>
+                </div>
+            </div>
+
+            <div class="route-container">
+                <div class="route-progress" id="route-progress" style="width: 72%"></div>
+            </div>
+            <div class="text-center mt-2 text-sm text-gray-600">
+                Route Progress: <span id="route-percentage">72%</span> Complete
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <button onclick="WasteCollection.startRoute()" class="worker-btn bg-green-600 text-white">
+                <i class="fas fa-play"></i>
+                <span>Start Route</span>
+            </button>
+            <button onclick="WasteCollection.pauseRoute()" class="worker-btn bg-yellow-600 text-white">
+                <i class="fas fa-pause"></i>
+                <span>Pause Route</span>
+            </button>
+            <button onclick="WasteCollection.emergencyStop()" class="worker-btn bg-red-600 text-white">
+                <i class="fas fa-stop"></i>
+                <span>Emergency</span>
+            </button>
+            <button onclick="WasteCollection.endRoute()" class="worker-btn bg-gray-600 text-white">
+                <i class="fas fa-flag-checkered"></i>
+                <span>End Route</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Houses List -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="houses-container">
+        <!-- Houses will be dynamically loaded here -->
+    </div>
+
+    <!-- Collection Modal -->
+    <div id="collection-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold" id="modal-house-title">House Collection</h3>
+                <button onclick="WasteCollection.closeModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Waste Type</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="WasteCollection.selectWasteType('organic')"
+                            class="waste-type-btn p-3 border-2 border-green-200 rounded-lg text-center hover:border-green-500 transition-colors">
+                            <i class="fas fa-leaf text-green-600 text-xl mb-1"></i>
+                            <div class="text-sm font-medium">Organic</div>
+                        </button>
+                        <button onclick="WasteCollection.selectWasteType('recyclable')"
+                            class="waste-type-btn p-3 border-2 border-blue-200 rounded-lg text-center hover:border-blue-500 transition-colors">
+                            <i class="fas fa-recycle text-blue-600 text-xl mb-1"></i>
+                            <div class="text-sm font-medium">Recyclable</div>
+                        </button>
+                        <button onclick="WasteCollection.selectWasteType('hazardous')"
+                            class="waste-type-btn p-3 border-2 border-red-200 rounded-lg text-center hover:border-red-500 transition-colors">
+                            <i class="fas fa-radiation text-red-600 text-xl mb-1"></i>
+                            <div class="text-sm font-medium">Hazardous</div>
+                        </button>
+                        <button onclick="WasteCollection.selectWasteType('mixed')"
+                            class="waste-type-btn p-3 border-2 border-gray-200 rounded-lg text-center hover:border-gray-500 transition-colors">
+                            <i class="fas fa-trash text-gray-600 text-xl mb-1"></i>
+                            <div class="text-sm font-medium">Mixed</div>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                    <input type="number" id="waste-weight" min="0" step="0.1"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                        placeholder="Enter weight">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Segregation Quality</label>
+                    <div class="flex space-x-2">
+                        <button onclick="WasteCollection.setQuality('excellent')"
+                            class="quality-btn flex-1 p-2 bg-green-100 text-green-800 rounded-lg border border-green-300 hover:bg-green-200 transition-colors">
+                            Excellent
+                        </button>
+                        <button onclick="WasteCollection.setQuality('good')"
+                            class="quality-btn flex-1 p-2 bg-blue-100 text-blue-800 rounded-lg border border-blue-300 hover:bg-blue-200 transition-colors">
+                            Good
+                        </button>
+                        <button onclick="WasteCollection.setQuality('poor')"
+                            class="quality-btn flex-1 p-2 bg-red-100 text-red-800 rounded-lg border border-red-300 hover:bg-red-200 transition-colors">
+                            Poor
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Take Photo (Optional)</label>
+                    <div class="flex items-center space-x-4">
+                        <div class="photo-btn" onclick="WasteCollection.capturePhoto()" id="photo-capture">
+                            <i class="fas fa-camera text-2xl text-primary-green mb-2"></i>
+                            <span class="text-sm text-primary-green">Take Photo</span>
+                        </div>
+                        <img id="captured-photo" class="photo-preview hidden" alt="Captured photo">
+                    </div>
+                </div>
+
+                <div class="flex space-x-3 pt-4">
+                    <button onclick="WasteCollection.markCollected()" class="flex-1 worker-btn bg-green-600 text-white">
+                        <i class="fas fa-check"></i>
+                        <span>Mark Collected</span>
+                    </button>
+                    <button onclick="WasteCollection.rejectWaste()" class="flex-1 worker-btn bg-red-600 text-white">
+                        <i class="fas fa-times"></i>
+                        <span>Reject</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GPS Location Modal -->
+    <div id="location-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+            <div class="text-center">
+                <div class="loading-spinner mx-auto mb-4"></div>
+                <h3 class="text-lg font-semibold mb-2">Getting Your Location</h3>
+                <p class="text-gray-600">Please wait while we find your current position...</p>
+                <button onclick="WasteCollection.closeLocationModal()"
+                    class="mt-4 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
