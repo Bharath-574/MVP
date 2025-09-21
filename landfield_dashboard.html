@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,199 +9,234 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         'main-heading': '#263238',
                         'card-border-light': '#e0e0e0',
-                        'dark-bg': '#181a20',
-                        'dark-card-bg': '#23272f',
-                        'dark-border': '#2d3748',
-                        'dark-text': '#f7fafc',
-                        'dark-headings': '#e0e7ef',
-                        'dark-text-secondary': '#cfd8dc',
-                        'dark-green': '#388e3c',
-                        'dark-blue': '#1565c0',
-                        'dark-orange': '#ff9800',
                     }
                 }
             }
         }
     </script>
-    <!-- Inter Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <!-- Inter Font (optimized loading) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        media="print" onload="this.media='all'; this.onload=null;">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
     <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles optimized for performance */
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* Fixed header styles */
+        .header-fixed {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 9999 !important;
+            width: 100% !important;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
         .text-main-heading {
             color: #263238;
         }
-        .dark .text-main-heading {
-            color: #e0e7ef;
-        }
-        .text-dark-green {
-            color: #388e3c;
-        }
-        .hidden-view {
-            display: none;
-        }
-        /* Responsive Background Image Collage */
-        body {
-            background-image: url("https://placehold.co/1920x1080/E8F5E9/66BB6A?text=Citizen+Segregating+Waste"), url("https://placehold.co/1920x1080/CFD8DC/546E7A?text=Worker+Collecting+Waste"), url("https://placehold.co/1920x1080/B3E5FC/039BE5?text=Team+Working+Together");
+
+        /* Responsive Background Image Collage - optimized for performance */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                url("https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"),
+                url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"),
+                url("https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
             background-repeat: no-repeat, no-repeat, no-repeat;
             background-position: left bottom, center bottom, right bottom;
             background-size: 33.33%, 33.33%, 33.33%;
             background-blend-mode: multiply;
+            z-index: -1;
+            opacity: 0.2;
+            will-change: auto;
+            transform: translateZ(0);
         }
+
+        /* Content container with semi-transparent background */
+        .content-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(224, 224, 224, 0.8);
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
         @media (max-width: 768px) {
-            body {
+            body::before {
                 background-position: center bottom;
                 background-size: 100%;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-dark-bg min-h-screen">
-    <!-- Navigation Bar -->
-    <nav class="bg-white dark:bg-dark-card-bg shadow-md p-4 sm:p-6 flex items-center justify-between w-full fixed top-0 z-50">
-        <!-- Project Name -->
-        <h1 class="text-xl sm:text-2xl font-bold text-main-heading dark:text-dark-headings absolute left-1/2 -translate-x-1/2">
-            Landfill Operator Portal
-        </h1>
-        <!-- Buttons on the right -->
-        <div class="flex items-center space-x-4 ml-auto">
-            <!-- Dark Mode Toggle Button -->
-            <button id="theme-toggle" class="p-2 rounded-full text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-800 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path id="sun-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    <path id="moon-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-            </button>
-            <!-- Login/Logout Button -->
-            <a href="index.html" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300">
-                Logout
-            </a>
-        </div>
-    </nav>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Fixed Navigation Header -->
+    <header class="header-fixed">
+        <nav class="bg-white shadow-lg px-4 sm:px-6 py-4 flex items-center justify-between">
+            <!-- Project Name -->
+            <h1 class="text-xl sm:text-2xl font-bold text-main-heading text-center flex-1">
+                Landfill Operator Portal
+            </h1>
+
+            <!-- Logout Button on Right -->
+            <div>
+                <a href="login.html" id="logoutLink"
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 sm:px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300">
+                    Logout
+                </a>
+            </div>
+        </nav>
+    </header>
     <!-- Main Dashboard Content -->
-    <div id="landfillView" class="mt-32 mb-80">
-        <div class="bg-white dark:bg-dark-card-bg dark:border-dark-border max-w-4xl mx-auto p-8 rounded-xl shadow-lg border border-card-border-light transition-colors duration-300 relative z-10">
-            <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-dark-headings mb-6">Landfill Operator Dashboard</h2>
-            <p class="text-gray-600 dark:text-dark-text-secondary text-center mb-12">Here you can monitor waste volume, manage incoming trucks, and track disposal data.  </p>
-            <main class="space-y-12">
-                <!-- Report Section -->
-                <section>
-                    <h3 class="text-xl font-semibold text-main-heading dark:text-dark-headings mb-4">Waste Reporting</h3>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Card for Waste Volume -->
-                        <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-                            <h4 class="text-lg font-medium text-gray-800 dark:text-dark-headings mb-2">Total Waste Received</h4>
-                            <p class="text-gray-600 dark:text-dark-text-secondary text-4xl font-bold">120 <span class="text-sm font-normal">tons</span></p>
+    <div id="landfillView" class="pt-24 pb-32 px-8">
+        <div class="content-container p-8 max-w-4xl mx-auto mt-8 relative overflow-hidden">
+            <!-- Decorative Background Image -->
+            <div class="absolute top-0 right-0 w-24 h-24 opacity-10">
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                    alt="Environmental sustainability icon" class="w-full h-full object-cover rounded-bl-full">
+            </div>
+
+            <div class="relative z-10">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Landfill Operator Dashboard</h2>
+                <p class="text-gray-600 text-center mb-12">Here you can monitor waste volume, manage incoming trucks,
+                    and track disposal data.</p>
+
+                <main class="space-y-12">
+                    <!-- Report Section -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-main-heading mb-4">Waste Reporting</h3>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Card for Waste Volume -->
+                            <div class="bg-gray-100 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h4 class="text-lg font-medium text-gray-800 mb-2">Total Waste Received</h4>
+                                <p class="text-gray-600 text-4xl font-bold">120 <span
+                                        class="text-sm font-normal">tons</span></p>
+                            </div>
+                            <!-- Card for Toxic Materials -->
+                            <div class="bg-gray-100 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h4 class="text-lg font-medium text-gray-800 mb-2">Hazardous Waste Disposed</h4>
+                                <p class="text-gray-600 text-4xl font-bold">15 <span
+                                        class="text-sm font-normal">tons</span></p>
+                            </div>
+                            <!-- Card for Remaining Capacity -->
+                            <div class="bg-gray-100 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h4 class="text-lg font-medium text-gray-800 mb-2">Remaining Capacity</h4>
+                                <p class="text-gray-600 text-4xl font-bold">85%</p>
+                            </div>
                         </div>
-                        <!-- Card for Toxic Materials -->
-                        <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-                            <h4 class="text-lg font-medium text-gray-800 dark:text-dark-headings mb-2">Hazardous Waste Disposed</h4>
-                            <p class="text-gray-600 dark:text-dark-text-secondary text-4xl font-bold">15 <span class="text-sm font-normal">tons</span></p>
+                    </section>
+
+                    <!-- Attendance Section -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-main-heading mb-4">Attendance and Shift Information</h3>
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <table class="w-full text-left table-auto">
+                                <thead>
+                                    <tr class="bg-gray-50">
+                                        <th class="p-3 text-sm font-semibold text-gray-700">Employee ID</th>
+                                        <th class="p-3 text-sm font-semibold text-gray-700">Status</th>
+                                        <th class="p-3 text-sm font-semibold text-gray-700">Last Check-in</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="p-3 text-sm text-gray-900">OP-001</td>
+                                        <td class="p-3 text-sm text-green-600 font-medium">Present</td>
+                                        <td class="p-3 text-sm text-gray-500">08:00 AM</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="p-3 text-sm text-gray-900">OP-002</td>
+                                        <td class="p-3 text-sm text-red-600 font-medium">Absent</td>
+                                        <td class="p-3 text-sm text-gray-500">--</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 text-sm text-gray-900">OP-003</td>
+                                        <td class="p-3 text-sm text-green-600 font-medium">Present</td>
+                                        <td class="p-3 text-sm text-gray-500">08:15 AM</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <!-- Card for Remaining Capacity -->
-                        <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-                            <h4 class="text-lg font-medium text-gray-800 dark:text-dark-headings mb-2">Remaining Capacity</h4>
-                            <p class="text-gray-600 dark:text-dark-text-secondary text-4xl font-bold">85%</p>
-                        </div>
-                    </div>
-                </section>
-                <!-- Attendance Section -->
-                <section>
-                    <h3 class="text-xl font-semibold text-main-heading dark:text-dark-headings mb-4">Attendance and Shift Information</h3>
-                    <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-dark-border">
-                        <table class="w-full text-left table-auto">
-                            <thead>
-                                <tr class="bg-gray-50 dark:bg-gray-800">
-                                    <th class="p-3 text-sm font-semibold text-gray-700 dark:text-gray-400">Employee ID</th>
-                                    <th class="p-3 text-sm font-semibold text-gray-700 dark:text-gray-400">Status</th>
-                                    <th class="p-3 text-sm font-semibold text-gray-700 dark:text-gray-400">Last Check-in</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b dark:border-gray-700">
-                                    <td class="p-3 text-sm text-gray-900 dark:text-gray-200">OP-001</td>
-                                    <td class="p-3 text-sm text-green-600 font-medium">Present</td>
-                                    <td class="p-3 text-sm text-gray-500 dark:text-gray-400">08:00 AM</td>
-                                </tr>
-                                <tr class="border-b dark:border-gray-700">
-                                    <td class="p-3 text-sm text-gray-900 dark:text-gray-200">OP-002</td>
-                                    <td class="p-3 text-sm text-red-600 font-medium">Absent</td>
-                                    <td class="p-3 text-sm text-gray-500 dark:text-gray-400">--</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 text-sm text-gray-900 dark:text-gray-200">OP-003</td>
-                                    <td class="p-3 text-sm text-green-600 font-medium">Present</td>
-                                    <td class="p-3 text-sm text-gray-500 dark:text-gray-400">08:15 AM</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-                <!-- Benefits Section -->
-                <section>
-                    <h3 class="text-xl font-semibold text-main-heading dark:text-dark-headings mb-4">Employee Benefits & Schemes</h3>
-                    <p class="text-gray-600 dark:text-dark-text-secondary leading-relaxed mb-4">The Government of India has introduced several schemes to improve the safety, dignity, and livelihood of sanitation workers, including landfill operators. These initiatives aim to formalize the workforce and provide a crucial social security net.</p>
-                    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-dark-text-secondary">
-                        <li>
-                            <span class="font-medium text-gray-800 dark:text-dark-headings">NAMASTE Scheme:</span> This flagship program provides health insurance under the **Ayushman Bharat-PMJAY** scheme, occupational safety training, and access to safety equipment.
-                        </li>
-                        <li>
-                            <span class="font-medium text-gray-800 dark:text-dark-headings">Financial Inclusion:</span> Workers are being integrated into formal financial systems with access to bank accounts, loans, and other financial services.
-                        </li>
-                        <li>
-                            <span class="font-medium text-gray-800 dark:text-dark-headings">Pension Schemes:</span> Various pension schemes like **Pradhan Mantri Shram Yogi Maan-Dhan Yojana** offer a financial safety net for old age.
-                        </li>
-                        <li>
-                            <span class="font-medium text-gray-800 dark:text-dark-headings">PPE and Safety:</span> Provision of Personal Protective Equipment (PPE) kits, including gloves, masks, and safety shoes, to ensure a safer working environment.
-                        </li>
-                    </ul>
-                </section>
-            </main>
+                    </section>
+
+                    <!-- Benefits Section -->
+                    <section>
+                        <h3 class="text-xl font-semibold text-main-heading mb-4">Employee Benefits & Schemes</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">The Government of India has introduced several
+                            schemes to improve the safety, dignity, and livelihood of sanitation workers, including
+                            landfill operators. These initiatives aim to formalize the workforce and provide a crucial
+                            social security net.</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>
+                                <span class="font-medium text-gray-800">NAMASTE Scheme:</span> This flagship program
+                                provides health insurance under the **Ayushman Bharat-PMJAY** scheme, occupational
+                                safety training, and access to safety equipment.
+                            </li>
+                            <li>
+                                <span class="font-medium text-gray-800">Financial Inclusion:</span> Workers are being
+                                integrated into formal financial systems with access to bank accounts, loans, and other
+                                financial services.
+                            </li>
+                            <li>
+                                <span class="font-medium text-gray-800">Pension Schemes:</span> Various pension schemes
+                                like **Pradhan Mantri Shram Yogi Maan-Dhan Yojana** offer a financial safety net for old
+                                age.
+                            </li>
+                            <li>
+                                <span class="font-medium text-gray-800">PPE and Safety:</span> Provision of Personal
+                                Protective Equipment (PPE) kits, including gloves, masks, and safety shoes, to ensure a
+                                safer working environment.
+                            </li>
+                        </ul>
+                    </section>
+                </main>
+            </div>
         </div>
     </div>
     <script>
-        // --- Dark Mode Functionality ---
-        const themeToggle = document.getElementById('theme-toggle');
-        const sunIcon = document.getElementById('sun-icon');
-        const moonIcon = document.getElementById('moon-icon');
-        function initializeTheme() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-                moonIcon.classList.remove('hidden');
-                sunIcon.classList.add('hidden');
-            } else {
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            }
-        }
-        themeToggle.addEventListener('click', () => {
-            const isDarkMode = document.documentElement.classList.toggle('dark');
-            if (isDarkMode) {
-                localStorage.setItem('theme', 'dark');
-                moonIcon.classList.remove('hidden');
-                sunIcon.classList.add('hidden');
-            } else {
-                localStorage.setItem('theme', 'light');
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            }
-        });
-        // --- On Page Load ---
+        // Initialize dashboard functionality
         document.addEventListener('DOMContentLoaded', () => {
-            initializeTheme();
+            console.log('Landfill Operator Dashboard loaded successfully');
+
+            // Add any dashboard-specific functionality here
+            // For example, real-time data updates, form validations, etc.
         });
     </script>
 </body>
+
 </html>

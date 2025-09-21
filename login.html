@@ -103,7 +103,6 @@
     </style>
 </head>
 
-<<<<<<< HEAD
 <body class="bg-gray-100 min-h-screen">
 
     <!-- Fixed Navigation Header -->
@@ -114,120 +113,12 @@
                 Welcome to Waste Management Portal
             </h1>
 
-            <!-- Login Button on Right -->
+            <!-- Home Button on Right -->
             <div>
                 <a href="index.html" id="homeLink"
                     class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 sm:px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-lime-300">
                     Home
                 </a>
-=======
-    <!-- Navigation Bar -->
-    <nav class="bg-white dark:bg-dark-card-bg shadow-md p-4 sm:p-6 flex items-center justify-between w-full fixed top-0 z-50">
-        <!-- Project Name -->
-        <h1 class="text-xl sm:text-2xl font-bold text-main-heading dark:text-dark-headings absolute left-1/2 -translate-x-1/2">
-            Welcome to Waste Management Portal
-        </h1>
-        <!-- Buttons on the right -->
-        <div class="flex items-center space-x-4 ml-auto">
-            <!-- Dark Mode Toggle Button -->
-            <button id="theme-toggle" class="p-2 rounded-full text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-800 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path id="sun-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    <path id="moon-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-            </button>
-            <!-- Login/Logout Button -->
-            <button id="loginButton" class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-lime-300">
-                Login
-            </button>
-        </div>
-    </nav>
-    
-    <!-- Login Information Table -->
-    <div class="fixed bottom-4 right-4 z-50">
-        <div class="bg-white dark:bg-dark-card-bg p-4 rounded-lg shadow-lg border border-gray-200 dark:border-dark-border">
-            <h4 class="font-semibold text-sm mb-2 text-gray-800 dark:text-dark-headings">Login Information</h4>
-            <table class="text-xs text-gray-700 dark:text-dark-text-secondary">
-                <thead>
-                    <tr>
-                        <th class="pr-4 text-left font-medium">Role</th>
-                        <th class="pr-4 text-left font-medium">Email</th>
-                        <th class="text-left font-medium">Password</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="pr-4">Door-to-door Collector</td>
-                        <td class="pr-4">collector@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Local Collector</td>
-                        <td class="pr-4">local@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Landfill Operator</td>
-                        <td class="pr-4">operator@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">ULB</td>
-                        <td class="pr-4">ulb@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Data Analyst</td>
-                        <td class="pr-4">analyst@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Green Champion</td>
-                        <td class="pr-4">champion@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Citizen</td>   
-                        <td class="pr-4">citizen@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <!-- Login Page View (hidden by default) -->
-    <div id="loginView" class=" mt-32 mb-80">
-        <div class="bg-white dark:bg-dark-card-bg dark:border-dark-border p-8 rounded-xl shadow-lg border border-card-border-light transition-colors duration-300 max-w-sm w-full mx-auto mt-24">
-            <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-dark-headings">Portal Login</h2>
-            <form id="loginForm" class="space-y-6">
-                <div id="errorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <span class="block sm:inline">Invalid email or password.</span>
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary">Email</label>
-                    <input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm" required>
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary">Password</label>
-                    <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm" required>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-lime-600 focus:ring-lime-500 border-gray-300 rounded">
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-dark-text-secondary">Remember me</label>
-                    </div>
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-lime-600 hover:text-lime-500 dark:text-lime-400 dark:hover:text-lime-300">Forgot password?</a>
-                    </div>
-                </div>
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-lime-500 hover:bg-lime-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500 transition duration-300 ease-in-out">
-                    Submit
-                </button>
-            </form>
-            <div class="mt-6 text-center">
-                <a href="index.html" id="returnHome" class="inline-block text-gray-600 dark:text-dark-text hover:underline">Return to Home Page</a>
->>>>>>> d01d78cde240dbf799903b017c0d850ceb7e5a09
             </div>
         </nav>
     </header>
@@ -279,7 +170,7 @@
         const credentials = {
             'collector@example.com': { password: 'pass123', role: 'collector', redirect: 'worker/door/index.html' },
             'local@example.com': { password: 'pass123', role: 'local', redirect: 'worker/second/index.html' },
-            'operator@example.com': { password: 'pass123', role: 'operator', redirect: 'worker/door/index.html' },
+            'operator@example.com': { password: 'pass123', role: 'operator', redirect: 'landfield_dashboard.html' },
             'ulb@example.com': { password: 'pass123', role: 'ulb', redirect: 'admin/admin/dashboard.html' },
             'analyst@example.com': { password: 'pass123', role: 'analyst', redirect: 'admin/dataanalyst/dashboard.html' },
             'champion@example.com': { password: 'pass123', role: 'champion', redirect: 'admin/champions/dashboard.html' },
@@ -288,51 +179,6 @@
 
         loginForm.addEventListener('submit', function (e) {
             e.preventDefault();
-<<<<<<< HEAD
-=======
-            showView('home');
-        });
-        
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = e.target.elements.email.value;
-            const password = e.target.elements.password.value;
-            
-            const user = credentials[email];
-            
-            if (user && user.password === password) {
-                errorMessage.classList.add('hidden');
-                localStorage.setItem('isLoggedIn', 'true');
-                
-                // Redirect to the appropriate page based on the user's role
-                switch(user.role) {
-                    case 'collector':
-                        window.location.href = 'collector-dashboard.html';
-                        break;
-                    case 'local':
-                        window.location.href = 'worker/second/index.html';
-                        break;
-                    case 'operator':
-                        window.location.href = 'worker/landfield/landfield_dashboard.html';
-                        break;
-                    case 'ulb':
-                        window.location.href = 'admin/admin/dashboard.html';
-                        break;
-                    case 'analyst':
-                        window.location.href = 'analyst-dashboard.html';
-                        break;
-                    case 'champion':
-                        window.location.href = 'admin/champions/dashboard.html';
-                        break;
-                    case 'citizen':
-                        window.location.href = 'citizen/index.html';
-                        break;
-                }
-            } else {
-                errorMessage.classList.remove('hidden');
-            }
-        });
->>>>>>> d01d78cde240dbf799903b017c0d850ceb7e5a09
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
