@@ -509,5 +509,18 @@ function renderDashboard() {
     leaderboardData.map(l => `<li>${l.name}: ${l.points} pts</li>`).join("");
 }
 
+// Logout functionality
+function logout() {
+    // Clear any stored session data
+    localStorage.removeItem('championData');
+    localStorage.removeItem('sessionData');
+    sessionStorage.clear();
+    
+    // Show confirmation and redirect
+    if (confirm('Are you sure you want to logout?')) {
+        window.location.href = '../../login.html';
+    }
+}
+
 // Show dashboard default
 showSection("events-section");

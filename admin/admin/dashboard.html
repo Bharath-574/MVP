@@ -1,123 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>ULB Admin Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styleadmin.css">
+  <!-- Tailwind CSS with custom configuration -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-green': '#4CAF50',
+            'main-heading': '#263238',
+            'secondary-blue': '#5B8DEF',
+            'accent-orange': '#FFB74D',
+            'card-border-light': '#e0e0e0',
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Inter Font (optimized loading) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    media="print" onload="this.media='all'; this.onload=null;">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  </noscript>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
-<body>
+
+<body class="bg-gray-100 text-gray-800 flex">
   <!-- ===== SIDEBAR ===== -->
-  <aside>
-    <div class="sidebar-title">Admin Panel</div>
-    <div class="nav-item active" onclick="showSection('dashboard')">Dashboard</div>
-    <div class="nav-item" onclick="showSection('complaints')">Complaints</div>
-    <div class="nav-item" onclick="showSection('users')">User Management</div>
-    <div class="nav-item" onclick="showSection('reports')">Reports</div>
-    <div class="nav-item" onclick="showSection('announcements')">Announcements</div>
-    <div class="nav-item" onclick="showSection('settings')">Settings</div>
+  <aside class="w-64 bg-main-heading text-white min-h-screen p-4">
+    <div class="text-xl font-bold mb-6">ULB Admin Panel</div>
+    <nav class="space-y-2">
+      <div class="w-full text-left py-2 px-3 rounded bg-gray-700 cursor-pointer" onclick="showSection('dashboard')">
+        Dashboard</div>
+      <div class="w-full text-left py-2 px-3 rounded hover:bg-gray-700 cursor-pointer"
+        onclick="showSection('complaints')">Complaints</div>
+      <div class="w-full text-left py-2 px-3 rounded hover:bg-gray-700 cursor-pointer" onclick="showSection('users')">
+        User Management</div>
+      <div class="w-full text-left py-2 px-3 rounded hover:bg-gray-700 cursor-pointer" onclick="showSection('reports')">
+        Reports</div>
+      <div class="w-full text-left py-2 px-3 rounded hover:bg-gray-700 cursor-pointer"
+        onclick="showSection('announcements')">Announcements</div>
+      <div class="w-full text-left py-2 px-3 rounded hover:bg-gray-700 cursor-pointer"
+        onclick="showSection('settings')">Settings</div>
+    </nav>
   </aside>
 
   <!-- ===== MAIN CONTENT ===== -->
-  <main>
-    <header>
-      <h1>ULB Admin Dashboard</h1>
-      <div>Admin • Logout</div>
+  <main class="flex-1 p-6">
+    <header class="mb-6 flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
+      <h1 class="text-3xl font-bold text-main-heading">ULB Admin Dashboard</h1>
+      <div class="flex items-center space-x-4">
+        <a href="../index.html"
+          class="bg-secondary-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-300">
+          <i class="fas fa-home mr-2"></i>Admin Portal
+        </a>
+        <button onclick="logout()"
+          class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition duration-300">
+          <i class="fas fa-sign-out-alt mr-2"></i>Logout
+        </button>
+      </div>
     </header>
 
     <!-- DASHBOARD SECTION -->
     <section id="dashboard-section">
-      <div class="cards">
-        <div class="card">
-          <h3>Total Complaints</h3>
-          <p id="total-complaints"></p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Complaints</h3>
+          <p id="total-complaints" class="text-3xl font-bold text-primary-green">0</p>
         </div>
-        <div class="card">
-          <h3>Active Green Champions</h3>
-          <p id="green-champions"></p>
+        <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">Active Green Champions</h3>
+          <p id="green-champions" class="text-3xl font-bold text-secondary-blue">0</p>
         </div>
-        <div class="card">
-          <h3>Pending Tasks</h3>
-          <p id="pending-tasks"></p>
+        <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">Pending Tasks</h3>
+          <p id="pending-tasks" class="text-3xl font-bold text-accent-orange">0</p>
         </div>
       </div>
     </section>
 
     <!-- COMPLAINTS SECTION -->
     <section id="complaints-section" class="hidden">
-      <h2>Complaints List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th><th>Category</th><th>Ward</th><th>Status</th><th>Priority</th>
-          </tr>
-        </thead>
-        <tbody id="complaints-table"></tbody>
-      </table>
+      <h2 class="text-2xl font-bold mb-4 text-main-heading">Complaints Management</h2>
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">ID</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Category</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Ward</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Priority</th>
+            </tr>
+          </thead>
+          <tbody id="complaints-table" class="divide-y divide-gray-200">
+            <!-- Table rows will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <!-- USER MANAGEMENT SECTION -->
     <section id="users-section" class="hidden">
-      <h2>User Management</h2>
-      <h3>Green Champions</h3>
-      <table>
-        <thead>
-          <tr><th>Name</th><th>ID</th><th>Status</th></tr>
-        </thead>
-        <tbody id="green-champions-table"></tbody>
-      </table>
+      <h2 class="text-2xl font-bold mb-6 text-main-heading">User Management</h2>
 
-      <h3>Data Analysts</h3>
-      <table>
-        <thead>
-          <tr><th>Name</th><th>ID</th><th>Status</th></tr>
-        </thead>
-        <tbody id="data-analysts-table"></tbody>
-      </table>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Green Champions Table -->
+        <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Green Champions</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th class="text-left py-2 px-3 font-semibold text-gray-700">Name</th>
+                  <th class="text-left py-2 px-3 font-semibold text-gray-700">ID</th>
+                  <th class="text-left py-2 px-3 font-semibold text-gray-700">Status</th>
+                </tr>
+              </thead>
+              <tbody id="green-champions-table" class="divide-y divide-gray-200">
+                <!-- Table rows will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-      <h3>Add User</h3>
-      <form onsubmit="addUser(event)">
-        <input type="text" id="user-name" placeholder="Name" required>
-        <input type="text" id="user-id" placeholder="User ID" required>
-        <input type="password" id="user-password" placeholder="Password" required>
-        <select id="user-role" required>
-          <option value="">Select Role</option>
-          <option value="Green Champion">Green Champion</option>
-          <option value="Data Analyst">Data Analyst</option>
-        </select>
-        <button type="submit">Add User</button>
-      </form>
+        <!-- Data Analysts Table -->
+        <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Data Analysts</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th class="text-left py-2 px-3 font-semibold text-gray-700">Name</th>
+                  <th class="text-left py-2 px-3 font-semibold text-gray-700">ID</th>
+                  <th class="text-left py-2 px-3 font-semibold text-gray-700">Status</th>
+                </tr>
+              </thead>
+              <tbody id="data-analysts-table" class="divide-y divide-gray-200">
+                <!-- Table rows will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add User Form -->
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Add New User</h3>
+        <form onsubmit="addUser(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" id="user-name" placeholder="Full Name" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green outline-none">
+          <input type="text" id="user-id" placeholder="User ID" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green outline-none">
+          <input type="password" id="user-password" placeholder="Password" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green outline-none">
+          <select id="user-role" required
+            class="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green outline-none">
+            <option value="">Select Role</option>
+            <option value="Green Champion">Green Champion</option>
+            <option value="Data Analyst">Data Analyst</option>
+          </select>
+          <button type="submit"
+            class="col-span-1 md:col-span-2 bg-lime-500 hover:bg-lime-600 text-white py-2 rounded-lg transition duration-300">
+            Add User
+          </button>
+        </form>
+      </div>
     </section>
 
     <!-- REPORTS SECTION -->
     <section id="reports-section" class="hidden">
-      <h2>Reports</h2>
-      <div class="card">
-        <p>Reports and charts will be displayed here.</p>
+      <h2 class="text-2xl font-bold mb-4 text-main-heading">Reports & Analytics</h2>
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+        <p class="text-gray-600">Reports and charts will be displayed here.</p>
       </div>
     </section>
 
     <!-- ANNOUNCEMENTS SECTION -->
     <section id="announcements-section" class="hidden">
-      <h2>Create Announcement</h2>
-      <form onsubmit="createAnnouncement(event)">
-        <input type="text" id="announcement-title" placeholder="Title" required>
-        <textarea id="announcement-message" placeholder="Message" required></textarea>
-        <button type="submit">Create</button>
-      </form>
-      <h2>Existing Announcements</h2>
-      <div id="announcements-list"></div>
+      <h2 class="text-2xl font-bold mb-6 text-main-heading">Announcements</h2>
+
+      <!-- Create Announcement Form -->
+      <div class="bg-white rounded-2xl shadow-md p-6 mb-6 border border-card-border-light">
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Create New Announcement</h3>
+        <form onsubmit="createAnnouncement(event)" class="space-y-4">
+          <input type="text" id="announcement-title" placeholder="Announcement Title" required
+            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green outline-none">
+          <textarea id="announcement-message" placeholder="Announcement Message" required rows="4"
+            class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-green outline-none"></textarea>
+          <button type="submit"
+            class="bg-lime-500 hover:bg-lime-600 text-white py-2 px-6 rounded-lg transition duration-300">
+            Create Announcement
+          </button>
+        </form>
+      </div>
+
+      <!-- Existing Announcements -->
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Recent Announcements</h3>
+        <div id="announcements-list" class="space-y-4">
+          <!-- Announcements will be populated by JavaScript -->
+        </div>
+      </div>
     </section>
 
     <!-- SETTINGS SECTION -->
     <section id="settings-section" class="hidden">
-      <h2>Settings</h2>
-      <div class="card">
-        <p>System configuration options will go here.</p>
+      <h2 class="text-2xl font-bold mb-4 text-main-heading">System Settings</h2>
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-card-border-light">
+        <p class="text-gray-600">System configuration options will be available here.</p>
       </div>
     </section>
   </main>
 
   <script src="scriptadmin.js"></script>
 </body>
+
 </html>

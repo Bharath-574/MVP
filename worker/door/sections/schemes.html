@@ -5,72 +5,10 @@
         <div class="trust-card rounded-lg p-6">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-xl font-semibold flex items-center">
-                    <i class="fas fa-gift text-accent-orange mr-3"></i>
-                    Worker Schemes & Benefits
+                    <i class="fas fa-landmark text-accent-orange mr-3"></i>
+                    Government Schemes & Benefits
                 </h3>
-                <div class="flex items-center space-x-4">
-                    <button onclick="SchemesBeifits.claimRewards()" class="worker-btn bg-primary-green text-white">
-                        <i class="fas fa-medal"></i>
-                        <span>Claim Rewards</span>
-                    </button>
-                    <button onclick="SchemesBeifits.viewHistory()" class="worker-btn bg-secondary-blue text-white">
-                        <i class="fas fa-history"></i>
-                        <span>View History</span>
-                    </button>
-                </div>
             </div>
-
-            <div class="grid md:grid-cols-4 gap-4">
-                <div class="text-center p-4 bg-green-50 rounded-lg">
-                    <div class="text-2xl font-bold text-green-600" id="total-earnings">₹12,450</div>
-                    <div class="text-sm text-gray-600">Total Earnings</div>
-                </div>
-                <div class="text-center p-4 bg-blue-50 rounded-lg">
-                    <div class="text-2xl font-bold text-blue-600" id="bonus-earned">₹2,100</div>
-                    <div class="text-sm text-gray-600">Bonus Earned</div>
-                </div>
-                <div class="text-center p-4 bg-orange-50 rounded-lg">
-                    <div class="text-2xl font-bold text-orange-600" id="reward-points">850</div>
-                    <div class="text-sm text-gray-600">Reward Points</div>
-                </div>
-                <div class="text-center p-4 bg-purple-50 rounded-lg">
-                    <div class="text-2xl font-bold text-purple-600" id="level-rank">Gold</div>
-                    <div class="text-sm text-gray-600">Worker Level</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Current Active Schemes -->
-    <div class="mb-6">
-        <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i class="fas fa-star text-yellow-500 mr-2"></i>
-            Active Schemes & Rewards
-        </h4>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="active-schemes">
-            <!-- Active schemes will be loaded here -->
-        </div>
-    </div>
-
-    <!-- Performance Incentives -->
-    <div class="mb-6">
-        <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i class="fas fa-trophy text-gold mr-2"></i>
-            Performance Incentives
-        </h4>
-        <div class="grid md:grid-cols-2 gap-6" id="performance-incentives">
-            <!-- Performance incentives will be loaded here -->
-        </div>
-    </div>
-
-    <!-- Monthly Challenges -->
-    <div class="mb-6">
-        <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i class="fas fa-target text-red-500 mr-2"></i>
-            Monthly Challenges
-        </h4>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="monthly-challenges">
-            <!-- Monthly challenges will be loaded here -->
         </div>
     </div>
 
@@ -78,93 +16,10 @@
     <div class="mb-6">
         <h4 class="text-lg font-semibold mb-4 flex items-center">
             <i class="fas fa-landmark text-blue-600 mr-2"></i>
-            Government Benefits & Welfare
+            Government Benefits & Welfare Schemes
         </h4>
         <div class="grid md:grid-cols-2 gap-6" id="government-benefits">
             <!-- Government benefits will be loaded here -->
-        </div>
-    </div>
-
-    <!-- Reward Store -->
-    <div class="mb-6">
-        <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i class="fas fa-shopping-cart text-green-600 mr-2"></i>
-            Reward Store
-        </h4>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4" id="reward-store">
-            <!-- Reward store items will be loaded here -->
-        </div>
-    </div>
-
-    <!-- Claim Rewards Modal -->
-    <div id="claim-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold">Claim Rewards</h3>
-                <button onclick="SchemesBeifits.closeClaimModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-
-            <div class="space-y-4" id="claimable-rewards">
-                <!-- Claimable rewards will be populated here -->
-            </div>
-
-            <div class="flex space-x-3 pt-4">
-                <button onclick="SchemesBeifits.claimSelectedRewards()"
-                    class="flex-1 worker-btn bg-primary-green text-white">
-                    <i class="fas fa-gift"></i>
-                    <span>Claim Selected</span>
-                </button>
-                <button onclick="SchemesBeifits.closeClaimModal()" class="flex-1 worker-btn bg-gray-600 text-white">
-                    <i class="fas fa-times"></i>
-                    <span>Cancel</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Purchase Modal -->
-    <div id="purchase-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold" id="purchase-title">Purchase Item</h3>
-                <button onclick="SchemesBeifits.closePurchaseModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-
-            <div class="space-y-4" id="purchase-details">
-                <!-- Purchase details will be populated here -->
-            </div>
-
-            <div class="flex space-x-3 pt-4">
-                <button onclick="SchemesBeifits.confirmPurchase()"
-                    class="flex-1 worker-btn bg-primary-green text-white">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Confirm Purchase</span>
-                </button>
-                <button onclick="SchemesBeifits.closePurchaseModal()" class="flex-1 worker-btn bg-gray-600 text-white">
-                    <i class="fas fa-times"></i>
-                    <span>Cancel</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- History Modal -->
-    <div id="history-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold">Earnings & Rewards History</h3>
-                <button onclick="SchemesBeifits.closeHistoryModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-
-            <div class="space-y-4" id="history-content">
-                <!-- History will be loaded here -->
-            </div>
         </div>
     </div>
 

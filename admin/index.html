@@ -1,68 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Government Portal</title>
-    <link rel="stylesheet" href="logs/style.css">
+    <title>Admin Portal - Government Portal</title>
+    <!-- Tailwind CSS with custom configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'main-heading': '#263238',
+                        'card-border-light': '#e0e0e0',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Inter Font (optimized loading) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        media="print" onload="this.media='all'; this.onload=null;">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles optimized for performance */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .text-main-heading {
+            color: #263238;
+        }
+
+        /* Responsive Background Image Collage - optimized for performance */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                url("https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"),
+                url("https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"),
+                url("https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
+            background-repeat: no-repeat, no-repeat, no-repeat;
+            background-position: left bottom, center bottom, right bottom;
+            background-size: 33.33%, 33.33%, 33.33%;
+            background-blend-mode: multiply;
+            z-index: -1;
+            opacity: 0.2;
+            will-change: auto;
+            transform: translateZ(0);
+        }
+
+        /* Content container with semi-transparent background */
+        .content-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(224, 224, 224, 0.8);
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .portal-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(224, 224, 224, 0.8);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            body::before {
+                background-position: center bottom;
+                background-size: 100%;
+            }
+        }
+    </style>
 </head>
-<body>
-    <!-- Login Form Container -->
-    <div id="loginForm" class="login-container">
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-5">
+    <!-- Portal Selection Container -->
+    <div class="content-container w-full max-w-4xl p-8 relative overflow-hidden">
         <!-- Header -->
-        <div class="header">
-            <h1>Admin Login</h1>
-            <div class="header-line"></div>
+        <div class="text-center mb-8 relative z-10">
+            <div class="mb-4">
+                <img src="https://images.unsplash.com/photo-1621111848501-8d3634f82336?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80"
+                    alt="Admin portal logo"
+                    class="w-16 h-16 mx-auto rounded-full object-cover border-2 border-lime-500">
+            </div>
+            <h1 class="text-3xl font-bold text-main-heading mb-2">Admin Portal</h1>
+            <div class="w-16 h-1 bg-lime-500 mx-auto rounded"></div>
+            <p class="text-sm text-gray-600 mt-2">Select your administrative role</p>
         </div>
 
-        <!-- Login Form -->
-        <form id="adminLoginForm">
-            <!-- Role Selector -->
-            <div class="form-group">
-                <label for="role">Select Role</label>
-                <select id="role" name="role" required>
-                    <option value="">-- Select Role --</option>
-                    <option value="Green Champion">Green Champion</option>
-                    <option value="ULB Admin">ULB Admin</option>
-                    <option value="Data Analyst">Data Analyst</option>
-                </select>
+        <!-- Portal Selection Grid -->
+        <div class="grid md:grid-cols-3 gap-6 relative z-10">
+            <!-- ULB Admin Portal -->
+            <div class="portal-card" onclick="window.location.href='admin/dashboard.html'">
+                <div class="mb-4">
+                    <i class="fas fa-city text-4xl text-blue-500"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-main-heading mb-2">ULB Admin</h3>
+                <p class="text-gray-600 text-sm">Urban Local Body Administration</p>
+                <div class="mt-4">
+                    <span class="inline-block bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
+                        Management Dashboard
+                    </span>
+                </div>
             </div>
 
-            <!-- Admin ID Input -->
-            <div class="form-group">
-                <label for="adminId">Admin ID</label>
-                <input type="text" id="adminId" name="adminId" placeholder="Enter your ID" required>
+            <!-- Green Champion Portal -->
+            <div class="portal-card" onclick="window.location.href='champions/dashboard.html'">
+                <div class="mb-4">
+                    <i class="fas fa-leaf text-4xl text-green-500"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-main-heading mb-2">Green Champion</h3>
+                <p class="text-gray-600 text-sm">Environmental Leadership Portal</p>
+                <div class="mt-4">
+                    <span class="inline-block bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">
+                        Champion Dashboard
+                    </span>
+                </div>
             </div>
 
-            <!-- Password Input -->
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <!-- Data Analyst Portal -->
+            <div class="portal-card" onclick="window.location.href='dataanalyst/dashboard.html'">
+                <div class="mb-4">
+                    <i class="fas fa-chart-line text-4xl text-purple-500"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-main-heading mb-2">Data Analyst</h3>
+                <p class="text-gray-600 text-sm">Analytics and Reporting Portal</p>
+                <div class="mt-4">
+                    <span class="inline-block bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">
+                        Analytics Dashboard
+                    </span>
+                </div>
             </div>
-
-            <!-- Login Button -->
-            <button type="submit" class="login-btn">Login</button>
-
-            <!-- Status Message -->
-            <div id="statusMessage" class="status-message hidden"></div>
-        </form>
-        <div class="demo-info">
-            <p class="demo-title">Demo Credentials:</p>
-            <p>ID: admin001, Password: admin123, Role: ULB Admin</p>
-            <p>ID: champion001, Password: green123, Role: Green Champion</p>
-            <p>ID: analyst001, Password: data123, Role: Data Analyst</p>
         </div>
 
+        <!-- Back to Home -->
+        <div class="text-center mt-8">
+            <a href="../index.html" class="text-gray-600 hover:text-gray-800 transition duration-300">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Home
+            </a>
+        </div>
     </div>
 
-    <!-- Success Page Container -->
-    <div id="successPage" class="login-container success-container hidden">
-        <h1>Welcome, Admin!</h1>
-        <p id="userRole">Role: </p>
-        <p id="userId">ID: </p>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-
-    <script src="logs/script.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
+
 </html>

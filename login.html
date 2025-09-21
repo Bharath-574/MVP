@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,320 +9,203 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         'main-heading': '#263238',
                         'card-border-light': '#e0e0e0',
-                        'dark-bg': '#181a20',
-                        'dark-card-bg': '#23272f',
-                        'dark-border': '#2d3748',
-                        'dark-text': '#f7fafc',
-                        'dark-headings': '#e0e7ef',
-                        'dark-text-secondary': '#cfd8dc',
-                        'dark-green': '#388e3c',
-                        'dark-blue': '#1565c0',
-                        'dark-orange': '#ff9800',
                     }
                 }
             }
         }
     </script>
-    <!-- Inter Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <!-- Inter Font (optimized loading) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        media="print" onload="this.media='all'; this.onload=null;">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
     <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styles optimized for performance */
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* Fixed header styles */
+        .header-fixed {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 9999 !important;
+            width: 100% !important;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
         .text-main-heading {
             color: #263238;
         }
-        .dark .text-main-heading {
-            color: #e0e7ef;
-        }
-        .text-dark-green {
-            color: #388e3c;
-        }
-        /* Hide a div while displaying another one. */
-        .hidden-view {
-            display: none;
-        }
 
-        /* Responsive Background Image Collage */
-        body {
-            background-image: url("https://placehold.co/1920x1080/E8F5E9/66BB6A?text=Citizen+Segregating+Waste"), url("https://placehold.co/1920x1080/CFD8DC/546E7A?text=Worker+Collecting+Waste"), url("https://placehold.co/1920x1080/B3E5FC/039BE5?text=Team+Working+Together");
+        /* Responsive Background Image Collage - optimized for performance */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                url("https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"),
+                url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"),
+                url("https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
             background-repeat: no-repeat, no-repeat, no-repeat;
             background-position: left bottom, center bottom, right bottom;
             background-size: 33.33%, 33.33%, 33.33%;
             background-blend-mode: multiply;
+            z-index: -1;
+            opacity: 0.2;
+            will-change: auto;
+            transform: translateZ(0);
+        }
+
+        /* Content container with semi-transparent background */
+        .content-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(224, 224, 224, 0.8);
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         @media (max-width: 768px) {
-            body {
+            body::before {
                 background-position: center bottom;
                 background-size: 100%;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-dark-bg min-h-screen">
 
-    <!-- Navigation Bar -->
-    <nav class="bg-white dark:bg-dark-card-bg shadow-md p-4 sm:p-6 flex items-center justify-between w-full fixed top-0 z-50">
-        <!-- Project Name -->
-        <h1 class="text-xl sm:text-2xl font-bold text-main-heading dark:text-dark-headings absolute left-1/2 -translate-x-1/2">
-            Welcome to Waste Management Portal
-        </h1>
-        <!-- Buttons on the right -->
-        <div class="flex items-center space-x-4 ml-auto">
-            <!-- Dark Mode Toggle Button -->
-            <button id="theme-toggle" class="p-2 rounded-full text-gray-700 bg-gray-200 dark:text-gray-200 dark:bg-gray-800 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path id="sun-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    <path id="moon-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-            </button>
-            <!-- Login/Logout Button -->
-            <button id="loginButton" class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-lime-300">
-                Login
-            </button>
-        </div>
-    </nav>
-    
-    <!-- Login Information Table -->
-    <div class="fixed bottom-4 right-4 z-50">
-        <div class="bg-white dark:bg-dark-card-bg p-4 rounded-lg shadow-lg border border-gray-200 dark:border-dark-border">
-            <h4 class="font-semibold text-sm mb-2 text-gray-800 dark:text-dark-headings">Login Information</h4>
-            <table class="text-xs text-gray-700 dark:text-dark-text-secondary">
-                <thead>
-                    <tr>
-                        <th class="pr-4 text-left font-medium">Role</th>
-                        <th class="pr-4 text-left font-medium">Email</th>
-                        <th class="text-left font-medium">Password</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="pr-4">Door-to-door Collector</td>
-                        <td class="pr-4">collector@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Local Collector</td>
-                        <td class="pr-4">local@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Landfill Operator</td>
-                        <td class="pr-4">operator@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">ULB</td>
-                        <td class="pr-4">ulb@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Data Analyst</td>
-                        <td class="pr-4">analyst@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Green Champion</td>
-                        <td class="pr-4">champion@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                    <tr>
-                        <td class="pr-4">Citizen</td>   
-                        <td class="pr-4">citizen@example.com</td>
-                        <td>pass123</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
-    <!-- Login Page View (hidden by default) -->
-    <div id="loginView" class=" mt-32 mb-80">
-        <div class="bg-white dark:bg-dark-card-bg dark:border-dark-border p-8 rounded-xl shadow-lg border border-card-border-light transition-colors duration-300 max-w-sm w-full mx-auto mt-24">
-            <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-dark-headings">Portal Login</h2>
-            <form id="loginForm" class="space-y-6">
-                <div id="errorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <span class="block sm:inline">Invalid email or password.</span>
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary">Email</label>
-                    <input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm" required>
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary">Password</label>
-                    <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm" required>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-lime-600 focus:ring-lime-500 border-gray-300 rounded">
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-dark-text-secondary">Remember me</label>
-                    </div>
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-lime-600 hover:text-lime-500 dark:text-lime-400 dark:hover:text-lime-300">Forgot password?</a>
-                    </div>
-                </div>
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-lime-500 hover:bg-lime-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500 transition duration-300 ease-in-out">
-                    Submit
-                </button>
-            </form>
-            <div class="mt-6 text-center">
-                <a href="#" id="returnHome" class="inline-block text-gray-600 dark:text-dark-text hover:underline">Return to Home Page</a>
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Fixed Navigation Header -->
+    <header class="header-fixed">
+        <nav class="bg-white shadow-lg px-4 sm:px-6 py-4 flex items-center justify-between">
+            <!-- Project Name -->
+            <h1 class="text-xl sm:text-2xl font-bold text-main-heading text-center flex-1">
+                Welcome to Waste Management Portal
+            </h1>
+
+            <!-- Login Button on Right -->
+            <div>
+                <a href="index.html" id="homeLink"
+                    class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 sm:px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-lime-300">
+                    Home
+                </a>
             </div>
+        </nav>
+    </header>
+
+    <!-- Login Page View -->
+    <div id="loginView" class="pt-24 pb-32 px-8">
+        <div class="content-container p-8 max-w-sm w-full mx-auto mt-8 relative overflow-hidden">
+            <!-- Decorative Background Image -->
+            <div class="absolute top-0 right-0 w-24 h-24 opacity-10">
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                    alt="Environmental sustainability icon" class="w-full h-full object-cover rounded-bl-full">
+            </div>
+
+            <form id="loginForm" class="relative z-10">
+                <!-- Email Input -->
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input type="email" id="email"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
+                        placeholder="Enter your email">
+                </div>
+
+                <!-- Password Input -->
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" id="password"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent"
+                        placeholder="Enter your password">
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit"
+                    class="w-full bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-lime-300">
+                    Login
+                </button>
+
+                <!-- Status Message -->
+                <div id="statusMessage" class="mt-4 p-3 rounded-md text-center text-sm font-medium hidden"></div>
+            </form>
         </div>
     </div>
-    
+
+
     <script>
-        const homeView = document.getElementById('homeView');
-        const loginView = document.getElementById('loginView');
-        const loginButton = document.getElementById('loginButton');
-        const returnHomeLink = document.getElementById('returnHome');
         const loginForm = document.getElementById('loginForm');
-        const errorMessage = document.getElementById('errorMessage');
+        const statusMessage = document.getElementById('statusMessage');
 
         // --- Login Credentials ---
         const credentials = {
-            'collector@example.com': { password: 'pass123', role: 'collector' },
-            'local@example.com': { password: 'pass123', role: 'local' },
-            'operator@example.com': { password: 'pass123', role: 'operator' },
-            'ulb@example.com': { password: 'pass123', role: 'ulb' },
-            'analyst@example.com': { password: 'pass123', role: 'analyst' },
-            'champion@example.com': { password: 'pass123', role: 'champion' },
-            'citizen@example.com':{password : 'pass123', role: 'citizen'}
+            'collector@example.com': { password: 'pass123', role: 'collector', redirect: 'worker/door/index.html' },
+            'local@example.com': { password: 'pass123', role: 'local', redirect: 'worker/second/index.html' },
+            'operator@example.com': { password: 'pass123', role: 'operator', redirect: 'worker/door/index.html' },
+            'ulb@example.com': { password: 'pass123', role: 'ulb', redirect: 'admin/admin/dashboard.html' },
+            'analyst@example.com': { password: 'pass123', role: 'analyst', redirect: 'admin/dataanalyst/dashboard.html' },
+            'champion@example.com': { password: 'pass123', role: 'champion', redirect: 'admin/champions/dashboard.html' },
+            'citizen@example.com': { password: 'pass123', role: 'citizen', redirect: 'citizen/index.html' }
         };
 
-        // --- Dark Mode Functionality ---
-        const themeToggle = document.getElementById('theme-toggle');
-        const sunIcon = document.getElementById('sun-icon');
-        const moonIcon = document.getElementById('moon-icon');
-
-        function initializeTheme() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-                moonIcon.classList.remove('hidden');
-                sunIcon.classList.add('hidden');
-            } else {
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            }
-        }
-
-        themeToggle.addEventListener('click', () => {
-            const isDarkMode = document.documentElement.classList.toggle('dark');
-            if (isDarkMode) {
-                localStorage.setItem('theme', 'dark');
-                moonIcon.classList.remove('hidden');
-                sunIcon.classList.add('hidden');
-            } else {
-                localStorage.setItem('theme', 'light');
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-            }
-        });
-        
-        // --- View Management and Login Logic ---
-        function showView(viewId) {
-            homeView.classList.add('hidden-view');
-            loginView.classList.add('hidden-view');
-            
-            if (viewId === 'home') {
-                homeView.classList.remove('hidden-view');
-                updateLoginButtonState(false);
-            } else if (viewId === 'login') {
-                loginView.classList.remove('hidden-view');
-            }
-        }
-        
-        function updateLoginButtonState(isLoggedIn) {
-            if (isLoggedIn) {
-                loginButton.textContent = 'Logout';
-                loginButton.classList.remove('bg-lime-500', 'hover:bg-lime-600');
-                loginButton.classList.add('bg-red-500', 'hover:bg-red-600');
-            } else {
-                loginButton.textContent = 'Login';
-                loginButton.classList.remove('bg-red-500', 'hover:bg-red-600');
-                loginButton.classList.add('bg-lime-500', 'hover:bg-lime-600');
-            }
-        }
-        
-        // Event listeners
-        loginButton.addEventListener('click', () => {
-            if (loginButton.textContent === 'Login') {
-                showView('login');
-            } else {
-                localStorage.removeItem('isLoggedIn');
-                window.location.href = 'index.html';
-            }
-        });
-        
-        returnHomeLink.addEventListener('click', (e) => {
+        loginForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            showView('home');
-        });
-        
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = e.target.elements.email.value;
-            const password = e.target.elements.password.value;
-            
-            const user = credentials[email];
-            
-            if (user && user.password === password) {
-                errorMessage.classList.add('hidden');
-                localStorage.setItem('isLoggedIn', 'true');
-                
-                // Redirect to the appropriate page based on the user's role
-                switch(user.role) {
-                    case 'collector':
-                        window.location.href = 'collector-dashboard.html';
-                        break;
-                    case 'local':
-                        window.location.href = 'worker/second/index.html';
-                        break;
-                    case 'operator':
-                        window.location.href = 'operator-dashboard.html';
-                        break;
-                    case 'ulb':
-                        window.location.href = 'admin/admin/dashboard.html';
-                        break;
-                    case 'analyst':
-                        window.location.href = 'analyst-dashboard.html';
-                        break;
-                    case 'champion':
-                        window.location.href = 'admin/champions/dashboard.html';
-                        break;
-                    case 'citizen':
-                        window.location.href = 'citizen/index.html';
-                        break;
-                }
-            } else {
-                errorMessage.classList.remove('hidden');
-            }
-        });
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeTheme();
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            if (isLoggedIn) {
-                updateLoginButtonState(true);
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Show status message function
+            function showStatus(message, type) {
+                statusMessage.textContent = message;
+                statusMessage.className = `mt-4 p-3 rounded-md text-center text-sm font-medium ${type === 'success' ? 'bg-green-100 text-green-700 border border-green-300' :
+                    'bg-red-100 text-red-700 border border-red-300'
+                    }`;
+                statusMessage.classList.remove('hidden');
+            }
+
+            // Validate credentials
+            if (credentials[email] && credentials[email].password === password) {
+                showStatus('Login successful! Redirecting...', 'success');
+
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.location.href = credentials[email].redirect;
+                }, 1500);
             } else {
-                updateLoginButtonState(false);
-                showView('home');
+                showStatus('Invalid email or password.', 'error');
             }
         });
     </script>
 
 </body>
+
 </html>

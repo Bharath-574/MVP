@@ -5,14 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Worker Portal - Door to Door Waste Collection</title>
+    <!-- Tailwind CSS with custom configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'main-heading': '#263238',
+                        'card-border-light': '#e0e0e0',
+                        'primary-green': '#4CAF50',
+                        'secondary-blue': '#5B8DEF',
+                        'accent-orange': '#FFB74D',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Inter Font (optimized loading) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        media="print" onload="this.media='all'; this.onload=null;">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
     <link rel="stylesheet" href="css/worker.css">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 min-h-screen font-['Inter']">
     <!-- Dashboard -->
     <div id="dashboard">
         <!-- Header -->
@@ -20,16 +43,20 @@
             <div class="max-w-7xl mx-auto flex justify-between items-center">
                 <div class="flex items-center space-x-3">
                     <i class="fas fa-truck text-primary-green text-2xl"></i>
-                    <h1 class="text-2xl font-bold text-gray-800">Worker Dashboard</h1>
+                    <h1 class="text-2xl font-bold text-main-heading">Worker Dashboard</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <div class="worker-status online">
-                        <i class="fas fa-circle text-green-500"></i>
-                        <span class="text-sm">On Duty</span>
-                    </div>
                     <button id="voice-toggle"
                         class="voice-btn bg-primary-green text-white p-2 rounded-full hover:bg-green-600 transition-colors">
                         <i class="fas fa-volume-up"></i>
+                    </button>
+                    <a href="../../index.html"
+                        class="bg-secondary-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <button onclick="logout()"
+                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
                     </button>
                 </div>
             </div>
@@ -39,11 +66,6 @@
         <nav class="bg-primary-green text-white p-4">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <button onclick="showSection('collection')"
-                        class="nav-btn worker-nav-btn flex items-center space-x-2 px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all">
-                        <i class="fas fa-trash-alt text-xl"></i>
-                        <span class="font-medium">Waste Collection</span>
-                    </button>
                     <button onclick="showSection('penalties')"
                         class="nav-btn worker-nav-btn flex items-center space-x-2 px-6 py-3 rounded-lg hover:bg-white/20 transition-all">
                         <i class="fas fa-exclamation-triangle text-xl"></i>
@@ -68,30 +90,6 @@
             </div>
         </nav>
 
-        <!-- Quick Stats Bar -->
-        <div class="bg-white border-b border-gray-200 p-4">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="stat-card text-center p-3 bg-green-50 rounded-lg">
-                        <div class="stat-number text-2xl font-bold text-green-600" id="today-collections">0</div>
-                        <div class="stat-label text-sm text-gray-600">Today's Collections</div>
-                    </div>
-                    <div class="stat-card text-center p-3 bg-red-50 rounded-lg">
-                        <div class="stat-number text-2xl font-bold text-red-600" id="penalties-issued">0</div>
-                        <div class="stat-label text-sm text-gray-600">Penalties Issued</div>
-                    </div>
-                    <div class="stat-card text-center p-3 bg-blue-50 rounded-lg">
-                        <div class="stat-number text-2xl font-bold text-blue-600" id="pending-requests">0</div>
-                        <div class="stat-label text-sm text-gray-600">Pending Requests</div>
-                    </div>
-                    <div class="stat-card text-center p-3 bg-yellow-50 rounded-lg">
-                        <div class="stat-number text-2xl font-bold text-yellow-600" id="earnings-today">₹0</div>
-                        <div class="stat-label text-sm text-gray-600">Today's Earnings</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <main class="max-w-7xl mx-auto p-6" id="main-content">
             <!-- Sections will be loaded here dynamically -->
         </main>
@@ -101,7 +99,6 @@
     <script src="js/navigation.js"></script>
 
     <!-- Load Section Scripts -->
-    <script src="js/collection.js"></script>
     <script src="js/penalties.js"></script>
     <script src="js/requests.js"></script>
     <script src="js/schemes.js"></script>
@@ -127,7 +124,7 @@
 
         // Load all sections on page load
         document.addEventListener('DOMContentLoaded', async function () {
-            const sections = ['collection', 'penalties', 'requests', 'schemes', 'profile'];
+            const sections = ['penalties', 'requests', 'schemes', 'profile'];
 
             // Load all sections
             for (const section of sections) {
@@ -136,25 +133,26 @@
 
             // Initialize navigation after all sections are loaded
             if (window.nav) {
-                window.nav.showSection('collection');
+                window.nav.showSection('penalties');
             }
 
             // Initialize voice guidance
             if (window.VoiceGuide) {
                 window.VoiceGuide.init();
             }
-
-            // Update stats
-            updateStats();
         });
 
-        // Update dashboard stats
-        function updateStats() {
-            // These would normally come from an API
-            document.getElementById('today-collections').textContent = '23';
-            document.getElementById('penalties-issued').textContent = '3';
-            document.getElementById('pending-requests').textContent = '5';
-            document.getElementById('earnings-today').textContent = '₹450';
+        // Logout functionality
+        function logout() {
+            // Clear any stored session data
+            localStorage.removeItem('workerData');
+            localStorage.removeItem('sessionData');
+            sessionStorage.clear();
+
+            // Show confirmation and redirect
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '../../login.html';
+            }
         }
     </script>
 </body>

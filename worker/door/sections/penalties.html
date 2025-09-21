@@ -8,16 +8,6 @@
                     <i class="fas fa-exclamation-triangle text-accent-orange mr-3"></i>
                     Penalties & Reports Management
                 </h3>
-                <div class="flex items-center space-x-4">
-                    <button onclick="PenaltiesReports.generateReport()" class="worker-btn bg-secondary-blue text-white">
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Generate Report</span>
-                    </button>
-                    <button onclick="PenaltiesReports.viewHistory()" class="worker-btn bg-primary-green text-white">
-                        <i class="fas fa-history"></i>
-                        <span>View History</span>
-                    </button>
-                </div>
             </div>
 
             <div class="grid md:grid-cols-4 gap-4">
@@ -43,7 +33,7 @@
 
     <!-- Quick Actions -->
     <div class="mb-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <button onclick="PenaltiesReports.openReportModal('penalty')" class="worker-btn bg-red-600 text-white">
                 <i class="fas fa-gavel"></i>
                 <span>Issue Penalty</span>
@@ -55,10 +45,6 @@
             <button onclick="PenaltiesReports.openReportModal('complaint')" class="worker-btn bg-blue-600 text-white">
                 <i class="fas fa-flag"></i>
                 <span>File Complaint</span>
-            </button>
-            <button onclick="PenaltiesReports.scanQRCode()" class="worker-btn bg-purple-600 text-white">
-                <i class="fas fa-qrcode"></i>
-                <span>Scan House QR</span>
             </button>
         </div>
     </div>
@@ -214,46 +200,6 @@
                         <span>Save Draft</span>
                     </button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- QR Scanner Modal -->
-    <div id="qr-scanner-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
-            <div class="text-center">
-                <h3 class="text-lg font-semibold mb-4">Scan House QR Code</h3>
-                <div class="qr-scanner-container bg-gray-100 rounded-lg p-8 mb-4">
-                    <i class="fas fa-qrcode text-6xl text-gray-400"></i>
-                    <p class="text-sm text-gray-600 mt-2">Position QR code within frame</p>
-                </div>
-                <div class="flex space-x-3">
-                    <button onclick="PenaltiesReports.startQRScan()"
-                        class="flex-1 worker-btn bg-primary-green text-white">
-                        <i class="fas fa-camera"></i>
-                        <span>Start Scan</span>
-                    </button>
-                    <button onclick="PenaltiesReports.closeQRModal()" class="flex-1 worker-btn bg-gray-600 text-white">
-                        <i class="fas fa-times"></i>
-                        <span>Cancel</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Report History Modal -->
-    <div id="history-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold">Report History</h3>
-                <button onclick="PenaltiesReports.closeHistoryModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-
-            <div class="space-y-4" id="history-content">
-                <!-- History will be loaded here -->
             </div>
         </div>
     </div>

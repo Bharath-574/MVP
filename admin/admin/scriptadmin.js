@@ -12,7 +12,7 @@
 
     let announcements = [
       {title:'Clean-up Drive', message:'Ward 3 clean-up drive on 15th Sept'},
-      {title:'Composting Workshop', message:'Training for Green Champions on 18th Sept'}
+      {title:'Composting Workshop', message:'Training for Green Champions on 28th Sept'}
     ];
 
     /* ===== DASHBOARD METRICS ===== */
@@ -87,6 +87,19 @@
     function deleteAnnouncement(index) {
       announcements.splice(index, 1);
       renderAnnouncements();
+    }
+
+    /* ===== LOGOUT FUNCTIONALITY ===== */
+    function logout() {
+      // Clear any stored session data
+      localStorage.removeItem('adminData');
+      localStorage.removeItem('sessionData');
+      sessionStorage.clear();
+      
+      // Show confirmation and redirect
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = '../../login.html';
+      }
     }
 
     /* ===== NAVIGATION ===== */

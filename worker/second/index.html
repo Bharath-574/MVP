@@ -1,58 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Worker Monitoring Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    .hidden-section { display: none; }
-    .active-tab { background-color: #2563eb; color: white; }
+    .hidden-section {
+      display: none;
+    }
+
+    .active-tab {
+      background-color: #2563eb;
+      color: white;
+    }
   </style>
 </head>
+
 <body class="bg-gray-100 min-h-screen">
 
   <!-- Header -->
-  <header class="bg-blue-600 text-white p-4 shadow">
-    <h1 class="text-2xl font-bold">Waste Management Worker Dashboard</h1>
+  <header class="bg-blue-600 text-white p-4 shadow relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+      <img src="https://picsum.photos/1200/400?random=1" alt="Waste collection workers"
+        class="w-full h-full object-cover">
+    </div>
+    <div class="relative z-10 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-bold">Waste Management Worker Dashboard</h1>
+        <p class="text-blue-100 mt-1">Local Collection & Monitoring Portal</p>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="../../index.html"
+          class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg transition duration-300">
+          <i class="fas fa-home mr-2"></i>Home
+        </a>
+        <button onclick="logout()"
+          class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition duration-300">
+          <i class="fas fa-sign-out-alt mr-2"></i>Logout
+        </button>
+      </div>
+    </div>
   </header>
 
   <!-- Navigation -->
   <nav class="flex space-x-4 bg-white p-3 shadow">
-    <button onclick="showSection('monitor')" id="tab-monitor" class="px-4 py-2 rounded hover:bg-blue-100">Worker Monitor</button>
-    <button onclick="showSection('garbage')" id="tab-garbage" class="px-4 py-2 rounded hover:bg-blue-100">Garbage Updates</button>
-    <button onclick="showSection('summary')" id="tab-summary" class="px-4 py-2 rounded hover:bg-blue-100">Waste Summary</button>
+    <button onclick="showSection('monitor')" id="tab-monitor"
+      class="px-4 py-2 rounded hover:bg-blue-100 flex items-center">
+      <img src="https://picsum.photos/20/20?random=2" alt="Monitor icon" class="w-5 h-5 mr-2 rounded"
+        onerror="this.style.display='none'">
+      Worker Monitor
+    </button>
+    <button onclick="showSection('summary')" id="tab-summary"
+      class="px-4 py-2 rounded hover:bg-blue-100 flex items-center">
+      <img src="https://picsum.photos/20/20?random=4" alt="Summary icon" class="w-5 h-5 mr-2 rounded">
+      Waste Summary
+    </button>
   </nav>
 
   <!-- Main Content -->
   <main class="p-6">
     <!-- Worker Monitoring Section -->
     <section id="monitor">
-      <h2 class="text-2xl font-semibold mb-4">Workers</h2>
+      <div class="flex items-center mb-6">
+        <img src="https://picsum.photos/100/100?random=5" alt="Worker monitoring icon"
+          class="w-12 h-12 rounded-full mr-4 object-cover">
+        <h2 class="text-2xl font-semibold">Workers</h2>
+      </div>
+
+      <!-- Worker Status Cards Background -->
+      <div class="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-lg mb-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <img src="https://picsum.photos/600/400?random=6" alt="Workers team" class="w-full h-full object-cover">
+        </div>
+        <div class="relative z-10">
+          <h3 class="text-lg font-semibold mb-3 flex items-center">
+            <img src="https://picsum.photos/30/30?random=7" alt="Status icon" class="w-6 h-6 mr-2 rounded">
+            Active Workers Status
+          </h3>
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div class="bg-white/80 p-3 rounded">
+              <div class="text-2xl font-bold text-green-600">12</div>
+              <div class="text-sm text-gray-600">Active</div>
+            </div>
+            <div class="bg-white/80 p-3 rounded">
+              <div class="text-2xl font-bold text-yellow-600">3</div>
+              <div class="text-sm text-gray-600">On Break</div>
+            </div>
+            <div class="bg-white/80 p-3 rounded">
+              <div class="text-2xl font-bold text-red-600">1</div>
+              <div class="text-sm text-gray-600">Offline</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="monitoredWorkersList"></div>
     </section>
 
-    <!-- Garbage Updates Section -->
-    <section id="garbage" class="hidden-section">
-      <h2 class="text-2xl font-semibold mb-4">Garbage Updates</h2>
+    <!-- Waste Summary Section -->
+    <section id="summary" class="hidden-section">
+      <div class="flex items-center mb-6">
+        <img
+          src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+          alt="Garbage collection icon" class="w-12 h-12 rounded-full mr-4 object-cover">
+        <h2 class="text-2xl font-semibold">Garbage Updates</h2>
+      </div>
 
       <!-- Worker Garbage -->
-      <form onsubmit="addGarbageRecord(event)" class="mb-6 p-4 bg-white shadow rounded">
-        <h3 class="font-semibold mb-3">Door-to-Door Worker Garbage</h3>
+      <form onsubmit="addGarbageRecord(event)" class="mb-6 p-4 bg-white shadow rounded relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 opacity-10">
+          <img
+            src="https://images.unsplash.com/photo-1610452203271-57b5d78e5bc1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+            alt="Waste collection truck" class="w-full h-full object-cover rounded-bl-full">
+        </div>
+        <h3 class="font-semibold mb-3 relative z-10 flex items-center">
+          <div class="w-6 h-6 mr-2 bg-green-200 rounded flex items-center justify-center">
+            <img
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=24&q=80"
+              alt="Door-to-door icon" class="w-4 h-4 rounded object-cover"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
+            <span class="text-green-600 text-xs font-bold" style="display: none;">🏠</span>
+          </div>
+          Door-to-Door Worker Garbage
+        </h3>
         <select id="garbageWorker" class="border p-2 rounded w-full mb-3" required>
           <option value="">Select Worker</option>
         </select>
-        <input type="number" id="expectedWeight" placeholder="Expected Weight (kg)" class="border p-2 rounded w-full mb-3" required>
+        <input type="number" id="expectedWeight" placeholder="Expected Weight (kg)"
+          class="border p-2 rounded w-full mb-3" required>
         <select id="priority" class="border p-2 rounded w-full mb-3" required>
           <option>High</option>
           <option>Medium</option>
           <option>Low</option>
         </select>
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add Record</button>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center">
+          <div class="w-4 h-4 mr-2 bg-blue-300 rounded flex items-center justify-center">
+            <img
+              src="https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=20&q=80"
+              alt="Add icon" class="w-3 h-3 object-cover"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
+            <span class="text-white text-xs font-bold" style="display: none;">+</span>
+          </div>
+          Add Record
+        </button>
       </form>
 
       <!-- Outgoing Waste -->
-      <form onsubmit="addOutgoingWaste(event)" class="mb-6 p-4 bg-white shadow rounded">
-        <h3 class="font-semibold mb-3">Outgoing Waste</h3>
+      <form onsubmit="addOutgoingWaste(event)" class="mb-6 p-4 bg-white shadow rounded relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 opacity-10">
+          <img
+            src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+            alt="Industrial waste processing and data analytics" class="w-full h-full object-cover rounded-bl-full">
+        </div>
+        <h3 class="font-semibold mb-3 relative z-10 flex items-center">
+          <img
+            src="https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=24&q=80"
+            alt="Industrial waste icon" class="w-6 h-6 mr-2 rounded">
+          Outgoing Waste
+        </h3>
         <input type="text" id="industry" placeholder="Industry Name" class="border p-2 rounded w-full mb-3" required>
         <input type="number" id="outWeight" placeholder="Weight (kg)" class="border p-2 rounded w-full mb-3" required>
         <select id="purpose" class="border p-2 rounded w-full mb-3" required>
@@ -62,28 +170,169 @@
           <option>Recycling</option>
           <option>Landfill</option>
         </select>
-        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add Outgoing</button>
+        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded flex items-center">
+          <img
+            src="https://images.unsplash.com/photo-1620652014135-96cc0b5b2be6?ixlib=rb-4.0.3&auto=format&fit=crop&w=20&q=80"
+            alt="Outgoing icon" class="w-4 h-4 mr-2">
+          Add Outgoing
+        </button>
       </form>
     </section>
 
     <!-- Waste Summary Section -->
     <section id="summary" class="hidden-section">
-      <h2 class="text-2xl font-semibold mb-4">Waste Summary</h2>
-      <div class="bg-white shadow p-4 rounded mb-4">
-        <p><strong>Total Waste:</strong> <span id="totalWaste">0</span> kg</p>
-        <div class="grid grid-cols-2 gap-3 mt-4 text-sm">
-          <div class="bg-gray-100 p-3 rounded">Dry: <span id="dryWaste">0</span> kg</div>
-          <div class="bg-gray-100 p-3 rounded">Wet: <span id="wetWaste">0</span> kg</div>
-          <div class="bg-gray-100 p-3 rounded">Recyclable: <span id="recycleWaste">0</span> kg</div>
-          <div class="bg-gray-100 p-3 rounded">Hazardous: <span id="hazardWaste">0</span> kg</div>
+      <div class="flex items-center mb-6">
+        <img
+          src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+          alt="Waste analytics and charts" class="w-12 h-12 rounded-full mr-4 object-cover">
+        <h2 class="text-2xl font-semibold">Waste Summary</h2>
+      </div>
+      <div class="bg-white shadow p-4 rounded mb-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 opacity-5">
+          <img
+            src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+            alt="Environmental sustainability" class="w-full h-full object-cover rounded-bl-full">
+        </div>
+        <p class="relative z-10 flex items-center text-lg mb-4">
+          <img
+            src="https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&auto=format&fit=crop&w=30&q=80"
+            alt="Total waste icon" class="w-7 h-7 mr-3 rounded">
+          <strong>Total Waste:</strong>
+          <span id="totalWaste" class="ml-2 text-blue-600 font-bold">0</span> kg
+        </p>
+        <div class="grid grid-cols-2 gap-3 mt-4 text-sm relative z-10">
+          <div class="bg-gray-100 p-3 rounded flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1604187351574-c75ca79f5807?ixlib=rb-4.0.3&auto=format&fit=crop&w=24&q=80"
+              alt="Dry waste" class="w-5 h-5 mr-2 rounded">
+            Dry: <span id="dryWaste" class="ml-auto font-semibold">0</span> kg
+          </div>
+          <div class="bg-gray-100 p-3 rounded flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=24&q=80"
+              alt="Wet waste" class="w-5 h-5 mr-2 rounded">
+            Wet: <span id="wetWaste" class="ml-auto font-semibold">0</span> kg
+          </div>
+          <div class="bg-gray-100 p-3 rounded flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&auto=format&fit=crop&w=24&q=80"
+              alt="Recyclable waste" class="w-5 h-5 mr-2 rounded">
+            Recyclable: <span id="recycleWaste" class="ml-auto font-semibold">0</span> kg
+          </div>
+          <div class="bg-gray-100 p-3 rounded flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=24&q=80"
+              alt="Hazardous waste" class="w-5 h-5 mr-2 rounded">
+            Hazardous: <span id="hazardWaste" class="ml-auto font-semibold">0</span> kg
+          </div>
         </div>
       </div>
 
-      <h3 class="font-semibold mb-2">Outgoing Waste List</h3>
-      <div id="outgoingList" class="grid md:grid-cols-2 gap-4"></div>
+      <h3 class="font-semibold mb-2 flex items-center">
+        <img
+          src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&auto=format&fit=crop&w=24&q=80"
+          alt="Outgoing list icon" class="w-6 h-6 mr-2 rounded">
+        Outgoing Waste List
+      </h3>
+
+      <!-- Enhanced Outgoing List with Images -->
+      <div id="outgoingList" class="grid md:grid-cols-2 gap-4">
+        <!-- Sample Waste to Energy Card -->
+        <div class="bg-white p-4 rounded-lg shadow border relative overflow-hidden">
+          <div
+            class="absolute top-0 right-0 w-16 h-16 opacity-15 bg-green-100 rounded-bl-full flex items-center justify-center">
+            <img src="https://picsum.photos/100/100?random=10" alt="Waste to energy"
+              class="w-full h-full object-cover rounded-bl-full" onerror="this.style.display='none'">
+            <span class="text-green-600 text-2xl">⚡</span>
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 rounded mr-3 bg-green-200 flex items-center justify-center">
+                <img src="https://picsum.photos/32/32?random=11" alt="Energy plant" class="w-6 h-6 rounded object-cover"
+                  onerror="this.style.display='none'">
+                <span class="text-green-600 text-sm font-bold">⚡</span>
+              </div>
+              <h4 class="font-semibold text-green-600">Green Energy Corp</h4>
+            </div>
+            <p class="text-sm text-gray-600 mb-1"><strong>Purpose:</strong> Waste to Energy</p>
+            <p class="text-sm text-gray-600 mb-1"><strong>Weight:</strong> 150 kg</p>
+            <p class="text-xs text-gray-500">Transferred: Today 10:30 AM</p>
+          </div>
+        </div>
+
+        <!-- Sample Recycling Card -->
+        <div class="bg-white p-4 rounded-lg shadow border relative overflow-hidden">
+          <div
+            class="absolute top-0 right-0 w-16 h-16 opacity-15 bg-blue-100 rounded-bl-full flex items-center justify-center">
+            <img src="https://picsum.photos/100/100?random=12" alt="Recycling facility"
+              class="w-full h-full object-cover rounded-bl-full" onerror="this.style.display='none'">
+            <span class="text-blue-600 text-2xl">♻️</span>
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 rounded mr-3 bg-blue-200 flex items-center justify-center">
+                <img src="https://picsum.photos/32/32?random=13" alt="Recycling symbol"
+                  class="w-6 h-6 rounded object-cover" onerror="this.style.display='none'">
+                <span class="text-blue-600 text-sm font-bold">♻️</span>
+              </div>
+              <h4 class="font-semibold text-blue-600">EcoRecycle Ltd</h4>
+            </div>
+            <p class="text-sm text-gray-600 mb-1"><strong>Purpose:</strong> Recycling</p>
+            <p class="text-sm text-gray-600 mb-1"><strong>Weight:</strong> 230 kg</p>
+            <p class="text-xs text-gray-500">Transferred: Today 9:15 AM</p>
+          </div>
+        </div>
+
+        <!-- Sample Bio Gas Card -->
+        <div class="bg-white p-4 rounded-lg shadow border relative overflow-hidden">
+          <div
+            class="absolute top-0 right-0 w-16 h-16 opacity-15 bg-orange-100 rounded-bl-full flex items-center justify-center">
+            <img src="https://picsum.photos/100/100?random=14" alt="Bio gas plant"
+              class="w-full h-full object-cover rounded-bl-full" onerror="this.style.display='none'">
+            <span class="text-orange-600 text-2xl">🔥</span>
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 rounded mr-3 bg-orange-200 flex items-center justify-center">
+                <img src="https://picsum.photos/32/32?random=15" alt="Bio gas icon" class="w-6 h-6 rounded object-cover"
+                  onerror="this.style.display='none'">
+                <span class="text-orange-600 text-sm font-bold">🔥</span>
+              </div>
+              <h4 class="font-semibold text-orange-600">BioGas Solutions</h4>
+            </div>
+            <p class="text-sm text-gray-600 mb-1"><strong>Purpose:</strong> Bio Gas</p>
+            <p class="text-sm text-gray-600 mb-1"><strong>Weight:</strong> 85 kg</p>
+            <p class="text-xs text-gray-500">Transferred: Yesterday 4:20 PM</p>
+          </div>
+        </div>
+
+        <!-- Sample Composting Card -->
+        <div class="bg-white p-4 rounded-lg shadow border relative overflow-hidden">
+          <div
+            class="absolute top-0 right-0 w-16 h-16 opacity-15 bg-green-100 rounded-bl-full flex items-center justify-center">
+            <img src="https://picsum.photos/100/100?random=16" alt="Composting facility"
+              class="w-full h-full object-cover rounded-bl-full" onerror="this.style.display='none'">
+            <span class="text-green-700 text-2xl">🌱</span>
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 rounded mr-3 bg-green-200 flex items-center justify-center">
+                <img src="https://picsum.photos/32/32?random=17" alt="Compost icon" class="w-6 h-6 rounded object-cover"
+                  onerror="this.style.display='none'">
+                <span class="text-green-700 text-sm font-bold">🌱</span>
+              </div>
+              <h4 class="font-semibold text-green-700">CompostCare Inc</h4>
+            </div>
+            <p class="text-sm text-gray-600 mb-1"><strong>Purpose:</strong> Decomposition</p>
+            <p class="text-sm text-gray-600 mb-1"><strong>Weight:</strong> 120 kg</p>
+            <p class="text-xs text-gray-500">Transferred: Yesterday 2:45 PM</p>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
   <script src="script.js"></script>
 </body>
+
 </html>

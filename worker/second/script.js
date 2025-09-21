@@ -151,4 +151,17 @@ function init() {
     showSection("monitor");
 }
 
+// Logout functionality
+function logout() {
+    // Clear any stored session data
+    localStorage.removeItem('workerData');
+    localStorage.removeItem('sessionData');
+    sessionStorage.clear();
+    
+    // Show confirmation and redirect
+    if (confirm('Are you sure you want to logout?')) {
+        window.location.href = '../../login.html';
+    }
+}
+
 init();

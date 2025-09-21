@@ -1,22 +1,39 @@
 <!-- Profile Section -->
 <div id="profile-section" class="section">
-    <div class="grid md:grid-cols-2 gap-6">
-        <div class="trust-card rounded-lg p-6">
-            <h3 class="text-xl font-semibold mb-4">Personal Information</h3>
-            <div class="space-y-3">
-                <div><strong>Name:</strong> <span id="user-name">Loading...</span></div>
-                <div><strong>House Number:</strong> <span id="user-house">Loading...</span></div>
-                <div><strong>Pin Code:</strong> <span id="user-pincode">Loading...</span></div>
-                <div><strong>Locality:</strong> <span id="user-locality">Loading...</span></div>
+    <div class="mb-6">
+        <div class="bg-gradient-to-r from-primary-green to-green-600 rounded-lg p-6 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    alt="Citizen environmental contribution" class="w-full h-full object-cover">
             </div>
-            <input type="text" id="api-input" placeholder="Enter API endpoint for user data"
-                class="w-full p-2 border rounded mt-4">
-            <button onclick="Profile.fetchUserData()" class="mt-2 bg-secondary-blue text-white px-4 py-2 rounded">Fetch
-                Data</button>
+            <div class="relative z-10 text-white">
+                <h2 class="text-2xl font-bold mb-2">Your Environmental Impact</h2>
+                <p class="text-green-100">Track your contribution to a cleaner environment</p>
+            </div>
         </div>
-        <div class="trust-card rounded-lg p-6">
-            <h3 class="text-xl font-semibold mb-4">Waste Collection Data</h3>
-            <div class="space-y-2">
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+        <div class="trust-card rounded-lg p-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-16 h-16 opacity-10">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    alt="Profile icon" class="w-full h-full object-cover rounded-full">
+            </div>
+            <h3 class="text-xl font-semibold mb-4 relative z-10">Personal Information</h3>
+            <div class="space-y-3 relative z-10">
+                <div><strong>Name:</strong> <span id="user-name">Priya Sharma</span></div>
+                <div><strong>House Number:</strong> <span id="user-house">B-47</span></div>
+                <div><strong>Pin Code:</strong> <span id="user-pincode">110045</span></div>
+                <div><strong>Locality:</strong> <span id="user-locality">Lajpat Nagar</span></div>
+            </div>
+        </div>
+        <div class="trust-card rounded-lg p-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-20 h-20 opacity-10">
+                <img src="https://images.unsplash.com/photo-1614149162883-504ce4d13909?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    alt="Waste collection data visualization" class="w-full h-full object-cover rounded-bl-full">
+            </div>
+            <h3 class="text-xl font-semibold mb-4 relative z-10">Waste Collection Data</h3>
+            <div class="space-y-2 relative z-10">
                 <div class="flex justify-between"><span>This Week:</span><span class="font-semibold">45 kg</span></div>
                 <div class="flex justify-between"><span>This Month:</span><span class="font-semibold">180 kg</span>
                 </div>

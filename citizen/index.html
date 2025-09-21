@@ -5,18 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citizen Portal - Waste Management</title>
+    <!-- Tailwind CSS with custom configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'main-heading': '#263238',
+                        'card-border-light': '#e0e0e0',
+                        'primary-green': '#4CAF50',
+                        'secondary-blue': '#5B8DEF',
+                        'accent-orange': '#FFB74D',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Inter Font (optimized loading) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        media="print" onload="this.media='all'; this.onload=null;">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/common.css">
 </head>
 
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 min-h-screen font-['Inter']">
     <!-- Dashboard -->
     <div id="dashboard">
         <!-- Header -->
         <header class="bg-white shadow-sm p-4">
             <div class="max-w-7xl mx-auto flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-gray-800">Citizen Dashboard</h1>
+                <h1 class="text-2xl font-bold text-main-heading">Citizen Dashboard</h1>
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html"
+                        class="bg-secondary-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <button onclick="logout()"
+                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </div>
             </div>
         </header>
 
@@ -51,6 +86,90 @@
     <script src="js/blog.js"></script>
 
     <script>
+        // Navigation functionality - defined globally to avoid loading issues
+        window.Navigation = class {
+            constructor() {
+                this.sections = ['profile', 'training', 'complaints', 'marketplace', 'tracking', 'locations', 'blog'];
+                this.currentSection = 'profile';
+            }
+
+            showSection(section) {
+                console.log(`Attempting to show section: ${section}`);
+
+                // Hide all sections
+                const allSections = document.querySelectorAll('.section');
+                allSections.forEach(s => {
+                    s.classList.add('hidden');
+                    s.style.display = 'none';
+                });
+
+                // Show selected section
+                const targetSection = document.getElementById(section + '-section');
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                    targetSection.style.display = 'block';
+                    console.log(`Section ${section} is now visible`);
+                } else {
+                    console.error(`Section ${section}-section not found`);
+                }
+
+                // Update nav buttons
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('bg-white', 'text-primary-green', 'active');
+                    btn.classList.add('bg-transparent', 'text-white');
+                });
+
+                // Find and activate the clicked button
+                const activeBtn = document.querySelector(`[onclick="showSection('${section}')"]`);
+                if (activeBtn) {
+                    activeBtn.classList.remove('bg-transparent', 'text-white');
+                    activeBtn.classList.add('bg-white', 'text-primary-green', 'active');
+                }
+
+                this.currentSection = section;
+
+                // Initialize section-specific functionality
+                setTimeout(() => {
+                    this.initSectionSpecific(section);
+                }, 100);
+            }
+
+            initSectionSpecific(section) {
+                switch (section) {
+                    case 'profile':
+                        if (window.Profile) window.Profile.init();
+                        break;
+                    case 'training':
+                        if (window.Training) window.Training.init();
+                        break;
+                    case 'complaints':
+                        if (window.Complaints) window.Complaints.init();
+                        break;
+                    case 'marketplace':
+                        if (window.Marketplace) window.Marketplace.init();
+                        break;
+                    case 'tracking':
+                        if (window.Tracking) window.Tracking.init();
+                        break;
+                    case 'locations':
+                        if (window.Locations) window.Locations.init();
+                        break;
+                    case 'blog':
+                        if (window.Blog) window.Blog.init();
+                        break;
+                }
+            }
+        }
+
+        // Global function for navigation buttons
+        function showSection(section) {
+            if (window.nav) {
+                window.nav.showSection(section);
+            } else {
+                console.error('Navigation not initialized');
+            }
+        }
+
         // Section loader
         async function loadSection(sectionName) {
             try {
@@ -77,10 +196,26 @@
             }
 
             // Initialize navigation after all sections are loaded
-            if (window.nav) {
+            setTimeout(() => {
+                if (!window.nav) {
+                    window.nav = new Navigation();
+                }
                 window.nav.showSection('profile');
-            }
+            }, 300);
         });
+
+        // Logout functionality
+        function logout() {
+            // Clear any stored user data
+            localStorage.removeItem('userData');
+            localStorage.removeItem('sessionData');
+            sessionStorage.clear();
+
+            // Show confirmation and redirect
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '../login.html';
+            }
+        }
     </script>
 </body>
 

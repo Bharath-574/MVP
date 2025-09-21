@@ -1,9 +1,42 @@
 <!-- Marketplace Section -->
 <div id="marketplace-section" class="section hidden">
+    <div class="mb-6">
+        <div class="bg-gradient-to-r from-primary-green to-green-600 rounded-lg p-6 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                    alt="Eco-friendly marketplace" class="w-full h-full object-cover">
+            </div>
+            <div class="relative z-10 text-white">
+                <h2 class="text-2xl font-bold mb-2">Eco-Friendly Marketplace</h2>
+                <p class="text-green-100">Sustainable products for your home and garden</p>
+            </div>
+        </div>
+    </div>
+
     <div class="trust-card rounded-lg p-6">
-        <h3 class="text-xl font-semibold mb-4">Marketplace</h3>
-        <div id="marketplace-products" class="grid md:grid-cols-3 gap-4">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-semibold">Available Products</h3>
+            <div class="text-sm text-gray-600">
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                    <i class="fas fa-leaf mr-1"></i>Eco-Certified
+                </span>
+            </div>
+        </div>
+        <div id="marketplace-products" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Products will be loaded here -->
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+            <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600">
+                    <i class="fas fa-shopping-cart mr-2"></i>Cart items are saved locally
+                </span>
+                <button onclick="Marketplace.clearCart(); location.reload();"
+                    class="text-xs text-red-600 hover:text-red-800">
+                    Clear Cart
+                </button>
+            </div>
         </div>
     </div>
 </div>

@@ -91,15 +91,15 @@
             width: 100%;
             height: 100%;
             background-image:
-                url("https://placehold.co/1920x1080/E8F5E9/66BB6A?text=Citizen+Segregating+Waste"),
-                url("https://placehold.co/1920x1080/CFD8DC/546E7A?text=Worker+Collecting+Waste"),
-                url("https://placehold.co/1920x1080/B3E5FC/039BE5?text=Team+Working+Together");
+                url("https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"),
+                url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"),
+                url("https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80");
             background-repeat: no-repeat, no-repeat, no-repeat;
             background-position: left bottom, center bottom, right bottom;
             background-size: 33.33%, 33.33%, 33.33%;
             background-blend-mode: multiply;
             z-index: -1;
-            opacity: 0.3;
+            opacity: 0.2;
             will-change: auto;
             transform: translateZ(0);
         }
@@ -140,77 +140,6 @@
             -webkit-backdrop-filter: blur(6px);
         }
 
-        /* Custom Language Selector Button */
-        .language-selector {
-            position: relative;
-            display: inline-block;
-        }
-
-        .language-btn {
-            background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
-            color: white;
-            font-weight: bold;
-            padding: 8px 16px;
-            border-radius: 9999px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .language-btn:hover {
-            background: linear-gradient(135deg, #65a30d 0%, #4d7c0f 100%);
-            transform: scale(1.05);
-            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.15);
-        }
-
-        .language-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(224, 224, 224, 0.8);
-            min-width: 200px;
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            margin-top: 8px;
-        }
-
-        .language-dropdown.show {
-            display: block;
-        }
-
-        .language-option {
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            font-size: 14px;
-            border-bottom: 1px solid rgba(224, 224, 224, 0.5);
-        }
-
-        .language-option:last-child {
-            border-bottom: none;
-        }
-
-        .language-option:hover {
-            background-color: #f3f4f6;
-        }
-
-        .language-option.selected {
-            background-color: #dcfce7;
-            color: #16a34a;
-            font-weight: 500;
-        }
-
         /* Video card styling */
         .video-card {
             background: rgba(255, 255, 255, 0.98);
@@ -248,31 +177,6 @@
                 background-position: center bottom;
                 background-size: 100%;
             }
-
-            .language-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-        }
-
-        /* Google Translate Integration */
-        .goog-te-banner-frame.skiptranslate {
-            display: none !important;
-        }
-
-        body {
-            top: 0px !important;
-        }
-
-        .goog-logo-link,
-        .goog-te-gadget span,
-        .goog-te-gadget>div>a {
-            display: none !important;
-        }
-
-        /* Hidden Google Translate element */
-        #google_translate_element {
-            display: none !important;
         }
     </style>
 
@@ -282,29 +186,7 @@
     <!-- Fixed Navigation Header -->
     <header class="header-fixed">
         <nav class="bg-white shadow-lg px-4 sm:px-6 py-4 flex items-center justify-between">
-            <!-- Language Selector on Left -->
-            <div class="language-selector">
-                <button class="language-btn" id="languageBtn">
-                    <span>🌐</span>
-                    <span id="currentLanguage">English</span>
-                    <span>▼</span>
-                </button>
-                <div class="language-dropdown" id="languageDropdown">
-                    <div class="language-option selected" data-lang="en">English</div>
-                    <div class="language-option" data-lang="hi">हिन्दी (Hindi)</div>
-                    <div class="language-option" data-lang="bn">বাংলা (Bengali)</div>
-                    <div class="language-option" data-lang="te">తెలుగు (Telugu)</div>
-                    <div class="language-option" data-lang="mr">मराठी (Marathi)</div>
-                    <div class="language-option" data-lang="ta">தமிழ் (Tamil)</div>
-                    <div class="language-option" data-lang="gu">ગુજરાતી (Gujarati)</div>
-                    <div class="language-option" data-lang="kn">ಕನ್ನಡ (Kannada)</div>
-                    <div class="language-option" data-lang="ml">മലയാളം (Malayalam)</div>
-                    <div class="language-option" data-lang="or">ଓଡ଼ିଆ (Odia)</div>
-                    <div class="language-option" data-lang="pa">ਪੰਜਾਬੀ (Punjabi)</div>
-                    <div class="language-option" data-lang="as">অসমীয়া (Assamese)</div>
-                    <div class="language-option" data-lang="ur">اردو (Urdu)</div>
-                </div>
-            </div>
+            <!-- Project Name -->
 
             <!-- Project Name -->
             <h1 class="text-xl sm:text-2xl font-bold text-main-heading text-center flex-1">
@@ -320,11 +202,6 @@
             </div>
         </nav>
     </header>
-
-    <!-- Google Translate Element - visible but hidden with CSS -->
-    <div id="google_translate_element"
-        style="position: fixed; top: 0; left: -200px; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -1;">
-    </div>
 
     <!-- Main Content Area -->
     <div class="main-content">
@@ -342,12 +219,21 @@
                     </section>
                     <section class="grid md:grid-cols-3 gap-6">
                         <div class="bg-blue-50 p-6 rounded-lg shadow-sm border border-blue-200">
+                            <div class="mb-4">
+                                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                    alt="Organic waste and compost" class="w-full h-32 object-cover rounded-lg mb-3">
+                            </div>
                             <h3 class="text-xl font-medium text-blue-700 mb-2">Wet Waste</h3>
                             <p class="text-blue-600">This includes all kitchen waste like
                                 leftover food, vegetable and fruit peels, tea leaves, and garden waste like leaves and
                                 flowers. It is biodegradable and can be turned into useful compost!</p>
                         </div>
                         <div class="bg-green-50 p-6 rounded-lg shadow-sm border border-green-200">
+                            <div class="mb-4">
+                                <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                    alt="Recyclable materials and bottles"
+                                    class="w-full h-32 object-cover rounded-lg mb-3">
+                            </div>
                             <h3 class="text-xl font-medium text-green-700 mb-2">Dry Waste</h3>
                             <p class="text-green-600">This includes things like plastic
                                 bottles, paper, cardboard, glass, metal, and old clothes. These items can be recycled
@@ -355,6 +241,11 @@
                                 reused, reducing the need to create new materials.</p>
                         </div>
                         <div class="bg-red-50 p-6 rounded-lg shadow-sm border border-red-200">
+                            <div class="mb-4">
+                                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                    alt="Hazardous waste materials including batteries and chemicals"
+                                    class="w-full h-32 object-cover rounded-lg mb-3">
+                            </div>
                             <h3 class="text-xl font-medium text-red-600 mb-2">Hazardous Waste</h3>
                             <p class="text-red-600">This is waste that can be harmful to
                                 people and the environment. Examples include batteries, light bulbs, old medicines, and
@@ -391,11 +282,21 @@
                             system.</p>
                         <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <div class="mb-4">
+                                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                        alt="Citizen using mobile app for waste management"
+                                        class="w-full h-32 object-cover rounded-lg mb-3">
+                                </div>
                                 <h4 class="text-lg font-medium text-gray-800 mb-2">Citizen</h4>
                                 <p class="text-gray-600">You can easily report issues, track
                                     waste collection, and learn more about proper segregation.</p>
                             </div>
                             <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <div class="mb-4">
+                                    <img src="https://images.unsplash.com/photo-1604187351574-c75ca79f5807?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                        alt="Waste collection workers in action"
+                                        class="w-full h-32 object-cover rounded-lg mb-3">
+                                </div>
                                 <h4 class="text-lg font-medium text-gray-800 mb-2">Worker</h4>
                                 <ul class="text-gray-600 list-inside list-disc text-left inline-block">
                                     <li>Door-to-door Collector</li>
@@ -404,6 +305,11 @@
                                 </ul>
                             </div>
                             <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <div class="mb-4">
+                                    <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                                        alt="Administrative team working with data and analytics"
+                                        class="w-full h-32 object-cover rounded-lg mb-3">
+                                </div>
                                 <h4 class="text-lg font-medium text-gray-800 mb-2">Admin</h4>
                                 <ul class="text-gray-600 list-inside list-disc text-left inline-block">
                                     <li>ULB (Urban Local Body)</li>
@@ -434,116 +340,7 @@
     </div>
 
     <script>
-        // Language Selector Functionality
-        const languageBtn = document.getElementById('languageBtn');
-        const languageDropdown = document.getElementById('languageDropdown');
-        const currentLanguageSpan = document.getElementById('currentLanguage');
         const homeView = document.getElementById('homeView');
-
-        // Language mapping
-        const languages = {
-            'en': 'English',
-            'hi': 'हिन्दी',
-            'bn': 'বাংলা',
-            'te': 'తెలుగు',
-            'mr': 'मराठी',
-            'ta': 'தமிழ்',
-            'gu': 'ગુજરાતી',
-            'kn': 'ಕನ್ನಡ',
-            'ml': 'മലയാളം',
-            'or': 'ଓଡ଼ିଆ',
-            'pa': 'ਪੰਜਾਬੀ',
-            'as': 'অসমীয়া',
-            'ur': 'اردو'
-        };
-
-        // Toggle language dropdown
-        languageBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            languageDropdown.classList.toggle('show');
-        });
-
-        // Handle language selection
-        languageDropdown.addEventListener('click', (e) => {
-            if (e.target.classList.contains('language-option')) {
-                const selectedLang = e.target.getAttribute('data-lang');
-                const selectedText = languages[selectedLang];
-
-                console.log('Language selected:', selectedLang, selectedText);
-
-                // Update current language display
-                currentLanguageSpan.textContent = selectedText;
-
-                // Update selected state
-                document.querySelectorAll('.language-option').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                e.target.classList.add('selected');
-
-                // Close dropdown
-                languageDropdown.classList.remove('show');
-
-                // Trigger Google Translate
-                translatePage(selectedLang);
-            }
-        });
-
-        // Simple and direct translation function
-        function translatePage(langCode) {
-            console.log('🌐 Translating to:', langCode);
-
-            // Find the Google Translate select element
-            const selectElement = document.querySelector('.goog-te-combo');
-
-            if (!selectElement) {
-                console.warn('⚠️ Google Translate not ready yet, retrying...');
-
-                // Retry up to 5 times with 1 second intervals
-                let retries = 0;
-                const retryTranslation = () => {
-                    retries++;
-                    const select = document.querySelector('.goog-te-combo');
-                    if (select) {
-                        console.log('🔄 Found translate element on retry', retries);
-                        performTranslation(select, langCode);
-                    } else if (retries < 5) {
-                        setTimeout(retryTranslation, 1000);
-                    } else {
-                        console.error('❌ Translation failed - Google Translate not available');
-                        alert('Translation service is not ready. Please wait a moment and try again.');
-                    }
-                };
-
-                setTimeout(retryTranslation, 1000);
-                return;
-            }
-
-            performTranslation(selectElement, langCode);
-        }
-
-        // Perform the actual translation
-        function performTranslation(selectElement, langCode) {
-            console.log('🎯 Performing translation to:', langCode);
-
-            // Check if the language option exists
-            const option = selectElement.querySelector(`option[value="${langCode}"]`);
-            if (!option) {
-                console.error('❌ Language not supported:', langCode);
-                console.log('📋 Available options:', Array.from(selectElement.options).map(opt => opt.value));
-                alert(`Language "${langCode}" is not available for translation.`);
-                return;
-            }
-
-            // Set the value and trigger change
-            selectElement.value = langCode;
-            const event = new Event('change', { bubbles: true, cancelable: true });
-            selectElement.dispatchEvent(event);
-
-            console.log('✅ Translation triggered successfully');
-        }        // Close dropdown when clicking outside
-        document.addEventListener('click', () => {
-            languageDropdown.classList.remove('show');
-        });
 
         // Scroll behavior for moving homeView up - optimized for performance
         function initializeScrollBehavior() {
@@ -583,94 +380,11 @@
             }
         }
 
-        // Initialize on page load with enhanced error handling
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             console.log('DOM Content Loaded');
             initializeScrollBehavior();
-
-            // Multiple initialization attempts for Google Translate
-            let initAttempts = 0;
-            const maxAttempts = 5;
-
-            const tryInitialize = () => {
-                initAttempts++;
-                console.log(`Google Translate initialization attempt ${initAttempts}/${maxAttempts}`);
-
-                if (typeof google !== 'undefined' && google.translate && google.translate.TranslateElement) {
-                    console.log('Google Translate script loaded, initializing...');
-                    googleTranslateElementInit();
-                } else if (initAttempts < maxAttempts) {
-                    console.log(`Google Translate not ready, retrying in ${initAttempts * 1000}ms...`);
-                    setTimeout(tryInitialize, initAttempts * 1000);
-                } else {
-                    console.error('Google Translate failed to load after', maxAttempts, 'attempts');
-                    console.log('Trying to load Google Translate manually...');
-
-                    // Try to load the script manually as a backup
-                    const script = document.createElement('script');
-                    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-                    script.async = true;
-                    script.onerror = () => console.error('Failed to load Google Translate script manually');
-                    script.onload = () => console.log('Google Translate script loaded manually');
-                    document.head.appendChild(script);
-                }
-            };
-
-            // Start initialization attempts
-            tryInitialize();
         });
-
-        // Google Translate Initialization - simplified approach
-        function googleTranslateElementInit() {
-            console.log('🚀 Starting Google Translate initialization...');
-
-            try {
-                // Simple initialization
-                new google.translate.TranslateElement({
-                    pageLanguage: 'en',
-                    includedLanguages: 'en,hi,bn,te,mr,ta,gu,kn,ml,or,pa,as,ur',
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                    autoDisplay: false
-                }, 'google_translate_element');
-
-                console.log('✅ Google Translate widget created');
-
-                // Wait for the select element to appear
-                const waitForSelect = () => {
-                    const selectElement = document.querySelector('.goog-te-combo');
-                    if (selectElement) {
-                        console.log('🎯 Translation select element found!');
-                        console.log('📋 Available languages:', Array.from(selectElement.options).map(opt => `${opt.value}: ${opt.text}`));
-
-                        // Make sure it's working by adding a change listener for testing
-                        selectElement.addEventListener('change', function () {
-                            console.log('🔄 Language changed to:', this.value);
-                        });
-
-                        return true;
-                    }
-                    return false;
-                };
-
-                // Check immediately, then retry if needed
-                if (!waitForSelect()) {
-                    let attempts = 0;
-                    const interval = setInterval(() => {
-                        attempts++;
-                        if (waitForSelect() || attempts > 20) {
-                            clearInterval(interval);
-                            if (attempts > 20) {
-                                console.error('❌ Google Translate select not found after 20 attempts');
-                            }
-                        }
-                    }, 500);
-                }
-
-            } catch (error) {
-                console.error('❌ Error initializing Google Translate:', error);
-            }
-        }        // Make the function globally available for the callback
-        window.googleTranslateElementInit = googleTranslateElementInit;
     </script>
 
     <!-- Service Worker Registration for PWA -->
@@ -690,9 +404,6 @@
             });
         }
     </script>
-
-    <!-- Google Translate Script with proper protocol -->
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 
